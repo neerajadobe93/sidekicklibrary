@@ -2,8 +2,8 @@
 Your project's description...
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://main--sidekicklibrary--neerajadobe93.hlx.page/
+- Live: https://main--sidekicklibrary--neerajadobe93.hlx.live/
 
 ## Installation
 
