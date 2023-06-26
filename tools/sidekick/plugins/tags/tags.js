@@ -8,3 +8,9 @@ export async function decorate(container, data, query) {
   // Render your plugin
   console.log("here");
 }
+
+
+export default {
+    title: 'Tags',
+    searchEnabled: true,
+  };
