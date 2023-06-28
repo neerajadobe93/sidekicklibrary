@@ -14,7 +14,7 @@
         "title": "Formify",
         "environments": ["edit"],
         "url": "/tools/sidekick/library.html",
-        "excludePaths": ["**.docx**"]
+        "excludePaths": ["**.docx**"],
         "includePaths": ["**.xls**"]
       }
     ]
