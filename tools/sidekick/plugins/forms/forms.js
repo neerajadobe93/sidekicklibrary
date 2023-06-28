@@ -11,6 +11,6 @@ export async function decorate(container, data, query) {
   
   
   export default {
-      title: 'Formsexpress',
+      title: 'Forms',
       searchEnabled: true,
     };
