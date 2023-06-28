@@ -10,8 +10,8 @@
         "excludePaths": ["**.xls**"]
       },
       {
-        "id": "formify",
-        "title": "Formify",
+        "id": "forms",
+        "title": "Forms",
         "environments": ["edit"],
         "url": "/tools/sidekick/library.html",
         "excludePaths": ["**.docx**"],
