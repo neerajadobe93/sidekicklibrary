@@ -7,6 +7,13 @@
         "environments": ["edit"],
         "url": "/tools/sidekick/library.html",
         "includePaths": ["**.docx**"]
+      },
+      {
+        "id": "formify",
+        "title": "Formify",
+        "environments": ["edit"],
+        "url": "/tools/sidekick/library.html",
+        "includePaths": ["**.xls**"]
       }
     ]
   }
