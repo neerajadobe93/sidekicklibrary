@@ -6,13 +6,15 @@
         "title": "Library",
         "environments": ["edit"],
         "url": "/tools/sidekick/library.html",
-        "includePaths": ["**.docx**"]
+        "includePaths": ["**.docx**"],
+        "excludePaths": ["**.xls**"]
       },
       {
         "id": "formify",
         "title": "Formify",
         "environments": ["edit"],
         "url": "/tools/sidekick/library.html",
+        "excludePaths": ["**.docx**"]
         "includePaths": ["**.xls**"]
       }
     ]
