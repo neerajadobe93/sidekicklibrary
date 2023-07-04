@@ -13,7 +13,7 @@ import {
 } from "./formHtmlutils.js";
 import { formBuilderClient } from "./formBuilderClient.js";
 import { registerContentContainerEvents } from "./formutils.js";
-import { sidecarmenu } from "./sidecarmenu.js";
+import { sidecarmenu } from "./sidecar-menu.js";
 
 export async function decorate(container, data, query) {
   // container.dispatchEvent(new CustomEvent('ShowLoader'));
