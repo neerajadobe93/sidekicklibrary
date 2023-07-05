@@ -98,7 +98,7 @@ sp-split-view {
 .formbuilder-list {
   border: 2px white dashed;
   margin: auto;
-  width: 30%;
+  width: 40%;
   min-height: 100px;
   margin-top: 10%;
   color: white;
@@ -138,26 +138,51 @@ formexcel-renderer {
 }
 
 .component-wrapper {
-  position: relative;
   margin-top: 10px;
   display: flex;
+  justify-content: space-between;
   color: white;
+  border: 1px white solid;
+  padding: 15px;
 }
 
 .component-wrapper .input-component {
   display: block;
   margin-right: 0px;
+  flex-grow: 1;
 }
 
-.component-wrapper .input-component label{
+.component-wrapper .input-component label {
   display: block;
 }
 
-
-.component-wrapper .input-component input{
+.component-wrapper .input-component input {
+  margin-top: 10px;
   padding: 10px;
+  width: 60%;
 }
 
 .component-wrapper .compnent_wizard {
   width: 10px;
+  position: relative;
+  right: -30px;
+}
+
+.component-wrapper .compnent_wizard button {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  border: 0px;
+  font-size: 1rem;
+}
+
+
+.component-wrapper .compnent_wizard button.delete-button {
+  background-color: #d73027;
+  margin-top: 5px;
+}
+
+
+.component-wrapper .compnent_wizard button.settings-button {
+  font-size: 1.8rem;
 }

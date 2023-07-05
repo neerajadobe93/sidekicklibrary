@@ -6,6 +6,7 @@ export function registerContentContainerEvents(
   formExcelContainer,
   excelUtils
 ) {
+  
   const builderView = contentContainer.querySelector(
     'sp-action-button[value="builder"]'
   );

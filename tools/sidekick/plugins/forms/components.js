@@ -72,31 +72,19 @@ export function componentUtils() {
     containerDiv.id = "compnent_wizard";
     containerDiv.classList.add("selectedControls", "bottom", "compnent_wizard");
 
-    // Create the line div
-    const lineDiv = document.createElement("div");
-    lineDiv.classList.add("line", "selectedControlsLine");
-    lineDiv.setAttribute("role", "group");
-    lineDiv.setAttribute("aria-label", "Selected Field Controls");
-
     const propertiesButton = document.createElement("button");
     propertiesButton.type = "button";
     propertiesButton.classList.add("settings-button");
     propertiesButton.innerHTML = "&#9881;"; // Gear sign
-    lineDiv.appendChild(propertiesButton);
+    containerDiv.appendChild(propertiesButton);
 
     // Create the remove button
     const removeButton = document.createElement("button");
     removeButton.type = "button";
-    removeButton.classList.add("sc-Remove", "btn");
+    removeButton.classList.add("sc-Remove", "btn","delete-button");
     removeButton.setAttribute("aria-label", "Remove");
-    removeButton.innerHTML = "<span>Remove</span>";
-    lineDiv.appendChild(removeButton);
-
-    removeButton.classList.add("delete-button");
     removeButton.innerHTML = "&#10005;"; // Cross sign
-    // Append the elements to the container div
-    containerDiv.appendChild(lineDiv);
-    // containerDiv.appendChild(orderButtonsDiv);
+    containerDiv.appendChild(removeButton);
 
     return containerDiv;
   }
@@ -114,7 +102,7 @@ export function componentUtils() {
         break;
       case "textarea":
         const textAreaLabel = document.createElement("label");
-        textAreaLabel.textContent = "Enter your question here";
+        textAreaLabel.textContent = "Question";
         const textAreaInput = document.createElement("input");
         textAreaInput.placeholder = "Enter your text here";
         textAreaInput.disabled = true;
@@ -123,7 +111,7 @@ export function componentUtils() {
         break;
       default:
         const textInputLabel = document.createElement("label");
-        textInputLabel.textContent = "Enter your question here";
+        textInputLabel.textContent = "Question";
         const textInput = document.createElement("input");
         textInput.placeholder = "Enter your text here";
         textInput.disabled = true;

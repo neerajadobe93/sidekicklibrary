@@ -1,6 +1,17 @@
-export function formBuilderClient(contentContainer, canvasContainer,componentUtils) {
+export function formBuilderClient(
+  contentContainer,
+  canvasContainer,
+  componentUtils
+) {
   const client = {};
-  client.componentListJson = [];
+  client.componentListJson = [
+    {
+      Name: "name",
+      Type: "text",
+      Label: "Name",
+      Mandatory: false,
+    },
+  ];
   client.componentUtils = componentUtils;
   const dropzone = contentContainer.querySelector(".dropzone");
   const propsModal = contentContainer.querySelector(".propsmodal");
@@ -11,7 +22,9 @@ export function formBuilderClient(contentContainer, canvasContainer,componentUti
   };
 
   client.removeComponent = function (componentJson) {
-    client.componentListJson = client.componentListJson.filter( component => component.Id !== componentJson.Id);
+    client.componentListJson = client.componentListJson.filter(
+      (component) => component.Id !== componentJson.Id
+    );
     client.updateComponentList();
   };
 
@@ -39,47 +52,46 @@ export function formBuilderClient(contentContainer, canvasContainer,componentUti
     client.updateComponentList();
   });
 
-
   client.renderPropsModal = function () {
-    const propsContainer = document.createElement('div');
+    const propsContainer = document.createElement("div");
     propsContainer.classList.add("props-container");
-  
+
     // Create the Name input element
-    const nameLabel = document.createElement('label');
-    nameLabel.setAttribute('for', 'name-input');
-    nameLabel.textContent = 'Name:';
-    const nameInput = document.createElement('input');
-    nameInput.type = 'text';
-    nameInput.id = 'name-input';
+    const nameLabel = document.createElement("label");
+    nameLabel.setAttribute("for", "name-input");
+    nameLabel.textContent = "Name:";
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.id = "name-input";
     propsContainer.appendChild(nameLabel);
     propsContainer.appendChild(nameInput);
-    
+
     // Create the Type input element
-    const typeLabel = document.createElement('label');
-    typeLabel.setAttribute('for', 'type-input');
-    typeLabel.textContent = 'Type:';
-    
-    const typeInput = document.createElement('input');
-    typeInput.type = 'text';
-    typeInput.id = 'type-input';
+    const typeLabel = document.createElement("label");
+    typeLabel.setAttribute("for", "type-input");
+    typeLabel.textContent = "Type:";
+
+    const typeInput = document.createElement("input");
+    typeInput.type = "text";
+    typeInput.id = "type-input";
 
     propsContainer.appendChild(typeLabel);
     propsContainer.appendChild(typeInput);
-    
+
     // Create the Label input element
-    const labelLabel = document.createElement('label');
-    labelLabel.setAttribute('for', 'label-input');
-    labelLabel.textContent = 'Label:';
-    
-    const labelInput = document.createElement('input');
-    labelInput.type = 'text';
-    labelInput.id = 'label-input';
+    const labelLabel = document.createElement("label");
+    labelLabel.setAttribute("for", "label-input");
+    labelLabel.textContent = "Label:";
+
+    const labelInput = document.createElement("input");
+    labelInput.type = "text";
+    labelInput.id = "label-input";
 
     propsContainer.appendChild(labelInput);
     propsContainer.appendChild(labelInput);
     propsModal.innerHTML = "";
     propsModal.appendChild(propsContainer);
-  }
+  };
 
   client.updateComponentList = function () {
     dropzone.innerHTML = "";
