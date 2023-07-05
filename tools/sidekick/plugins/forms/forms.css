@@ -118,7 +118,7 @@ sp-split-view {
 }
 
 .propsmodal {
-  display: none;
+  display: block;
   /* z-index: 9999; */
 }
 

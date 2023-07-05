@@ -1,40 +1,43 @@
 export function componentUtils() {
   const componentUtils = {};
 
-  componentUtils.createComponent = function (type) {
+  componentUtils.createComponent = function (componentJson) {
     const componentWrapper = document.createElement("div");
     componentWrapper.classList.add("component-wrapper");
     const compWizard = createComponentWizards();
-    const inputComponent = getInputComponent(type);
+    const inputComponent = getInputComponent(componentJson);
     componentWrapper.appendChild(inputComponent);
     componentWrapper.appendChild(compWizard);
     return componentWrapper;
   };
 
+  componentUtils.getComponentJson = function (type) {
+    let componentJson = {
+      Name: "",
+      Type: "",
+      Label: "",
+      Mandatory: false,
+    };
 
-  componentUtils.getComponentJson = function ( type ) {
-        let componentJson = {};
-        switch (type) {
-          case "Text":
-            componentJson.type="text";
-            componentJson.value="text"
-            break;
-          case "Button":
-            componentJson.type="button";
-            componentJson.value="button"
-            break;
-          case "Textarea":
-            componentJson.type="textarea";
-            componentJson.value="textarea"
-            break;
-          // Add cases for other input types as needed
-          default:
-            componentJson.type="text";
-            componentJson.value="text"
-            break;
-        }
-        return componentJson;
-  }
+    switch (type) {
+      case "Button":
+        componentJson.Type = "button";
+        componentJson.Name = "button";
+        componentJson.Label = "button";
+        break;
+      case "Textarea":
+        componentJson.Type = "textarea";
+        componentJson.Name = "textarea";
+        componentJson.Label = "textarea";
+        break;
+      default:
+        componentJson.Type = "text";
+        componentJson.Name = "text";
+        componentJson.Label = "text";
+        break;
+    }
+    return componentJson;
+  };
 
   componentUtils.registerEvents = function (
     component,
@@ -61,7 +64,7 @@ export function componentUtils() {
     // Create the container div
     const containerDiv = document.createElement("div");
     containerDiv.id = "compnent_wizard";
-    containerDiv.classList.add("selectedControls", "bottom","compnent_wizard");
+    containerDiv.classList.add("selectedControls", "bottom", "compnent_wizard");
 
     // Create the line div
     const lineDiv = document.createElement("div");
@@ -92,22 +95,22 @@ export function componentUtils() {
     return containerDiv;
   }
 
-  function getInputComponent(type) {
+  function getInputComponent(componentJson) {
     let component = document.createElement("div");
-    component.classList.add("input-component")
-    switch (type) {
-      case "Button":
+    component.classList.add("input-component");
+    switch (componentJson.Type) {
+      case "button":
         const buttonInput = document.createElement("input");
-        buttonInput.type="button"
-        buttonInput.value="button";
+        buttonInput.type = "button";
+        buttonInput.value = "button";
         buttonInput.disabled = true;
         component.appendChild(buttonInput);
         break;
-      case "Textarea":
+      case "textarea":
         const textAreaLabel = document.createElement("label");
         textAreaLabel.textContent = "Enter your question here";
         const textAreaInput = document.createElement("input");
-        textAreaInput.placeholder="Enter your text here";
+        textAreaInput.placeholder = "Enter your text here";
         textAreaInput.disabled = true;
         component.appendChild(textAreaLabel);
         component.appendChild(textAreaInput);
@@ -124,13 +127,6 @@ export function componentUtils() {
     }
 
     return component;
-  }
-
-
-  function createInputComponent(inputType) {
-    const input = document.createElement("input");
-    input.type = inputType;
-    return input;
   }
 
   return componentUtils;

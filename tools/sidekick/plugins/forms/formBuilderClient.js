@@ -6,8 +6,8 @@ export function formBuilderClient(contentContainer, componentUtils) {
   const dropzone = contentContainer.querySelector(".dropzone");
   const propsModal = contentContainer.querySelector(".propsmodal");
 
-  client.addComponent = function (component) {
-    client.componentList.push(component);
+  client.addComponent = function (componentJson) {
+    client.componentListJson.push(componentJson);
     this.updateComponentList();
   };
 
@@ -38,22 +38,23 @@ export function formBuilderClient(contentContainer, componentUtils) {
     event.preventDefault();
     dropzone.classList.remove("drag-over");
     const componentType = event.dataTransfer.getData("text");
-    const component = componentUtils.createComponent(componentType);
-    componentUtils.registerEvents(
-      component,
-      propsModal,
-      client.componentList,
-      client.updateComponentList
-    );
-    client.componentListJson.push(componentUtils.getComponentJson(componentType));
-    client.addComponent(component);
+    const componentJson = componentUtils.getComponentJson(componentType);
+    client.addComponent(componentJson);
     client.updateComponentList();
   });
 
   client.updateComponentList = function () {
     dropzone.innerHTML = "";
-    client.componentList.forEach((component) => {
+
+    client.componentListJson.forEach((componentJson) => {
       const listItem = document.createElement("li");
+      const component = client.componentUtils.createComponent(componentJson);
+      client.componentUtils.registerEvents(
+        component,
+        propsModal,
+        client.componentList,
+        client.updateComponentList
+      );
       listItem.appendChild(component);
       dropzone.appendChild(listItem);
     });
