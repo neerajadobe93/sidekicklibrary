@@ -6,8 +6,8 @@ export function componentUtils() {
     componentWrapper.classList.add("component-wrapper");
     const compWizard = createComponentWizards();
     const inputComponent = getInputComponent(type);
-    componentWrapper.appendChild(compWizard);
     componentWrapper.appendChild(inputComponent);
+    componentWrapper.appendChild(compWizard);
     return componentWrapper;
   };
 
@@ -61,7 +61,7 @@ export function componentUtils() {
     // Create the container div
     const containerDiv = document.createElement("div");
     containerDiv.id = "compnent_wizard";
-    containerDiv.classList.add("selectedControls", "bottom");
+    containerDiv.classList.add("selectedControls", "bottom","compnent_wizard");
 
     // Create the line div
     const lineDiv = document.createElement("div");
@@ -93,24 +93,35 @@ export function componentUtils() {
   }
 
   function getInputComponent(type) {
-    let component;
+    let component = document.createElement("div");
+    component.classList.add("input-component")
     switch (type) {
-      case "Text":
-        component = createInputComponent("text");
-        break;
       case "Button":
-        component = createInputComponent("button");
-        component.textContent = "Button";
+        const buttonInput = document.createElement("input");
+        buttonInput.type="button"
+        buttonInput.value="button";
+        buttonInput.disabled = true;
+        component.appendChild(buttonInput);
         break;
       case "Textarea":
-        component = createInputComponent("textarea");
+        const textAreaLabel = document.createElement("label");
+        textAreaLabel.textContent = "Enter your question here";
+        const textAreaInput = document.createElement("input");
+        textAreaInput.placeholder="Enter your text here";
+        textAreaInput.disabled = true;
+        component.appendChild(textAreaLabel);
+        component.appendChild(textAreaInput);
         break;
-      // Add cases for other input types as needed
       default:
-        component = createInputComponent("text");
+        const textInputLabel = document.createElement("label");
+        textInputLabel.textContent = "Enter your question here";
+        const textInput = document.createElement("input");
+        textInput.placeholder = "Enter your text here";
+        textInput.disabled = true;
+        component.appendChild(textInputLabel);
+        component.appendChild(textInput);
         break;
     }
-    component.classList.add("dropped-component");
 
     return component;
   }

@@ -8,6 +8,10 @@
 import { componentUtils } from "./components.js";
 import { createTag } from "./dom.js";
 import {
+  renderContentDrawerSplitContainer,
+  renderFormBuilderContainer,
+  renderFormExcelContainer,
+  renderFormPreViewContainer,
   renderFrameSplitContainer,
   renderScaffolding,
 } from "./formHtmlutils.js";
@@ -30,9 +34,18 @@ export async function decorate(container, data, query) {
   // content container
 
   const contentContainer = pageContainer.querySelector(".content");
-  contentContainer.innerHTML = renderFrameSplitContainer();
+  contentContainer.innerHTML = renderContentDrawerSplitContainer();
+  const canvasContainer = contentContainer.querySelector(".canvas-container");
 
-  registerContentContainerEvents(contentContainer);
+
+  const formbuilderContainer = renderFormBuilderContainer();
+  const formpreviewContainer = renderFormPreViewContainer();
+  const formExcelContainer = renderFormExcelContainer();
+
+  canvasContainer.innerHTML = formbuilderContainer;
+
+
+  registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer);
   const compUtils = componentUtils();
   const formClient = formBuilderClient(contentContainer, compUtils);
 }

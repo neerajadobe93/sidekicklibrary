@@ -1,41 +1,38 @@
-export function registerContentContainerEvents(contentContainer) {
-  const formBuilderView = contentContainer.querySelector("formbuilder-renderer");
-  const formPreviewView = contentContainer.querySelector("formpreview-renderer");
-  const formExcelView = contentContainer.querySelector("formexcel-renderer");
-  const propsModal = contentContainer.querySelector(".propsmodal");
+export function registerContentContainerEvents(
+  contentContainer,
+  canvasContainer,
+  formbuilderContainer,
+  formpreviewContainer,
+  formExcelContainer
+) {
 
+
+  
   const builderView = contentContainer.querySelector(
     'sp-action-button[value="builder"]'
   );
   builderView?.addEventListener("click", () => {
-    formBuilderView.style.display = "block";
-    formPreviewView.style.display = "none";
-    formExcelView.style.display = "none";
+    canvasContainer.innerHTML = formbuilderContainer;
+    const propsModal = canvasContainer.querySelector(".propsmodal");
+    const propsModalCloseButton = propsModal.querySelector(
+      ".modal-content span.close"
+    );
+    propsModalCloseButton.addEventListener("click", () => {
+      propsModal.classList.toggle("open");
+    });
   });
 
   const previewView = contentContainer.querySelector(
     'sp-action-button[value="preview"]'
   );
   previewView?.addEventListener("click", () => {
-    formBuilderView.style.display = "none";
-    formPreviewView.style.display = "block";
-    formExcelView.style.display = "none";
+    canvasContainer.innerHTML = formpreviewContainer;
   });
 
   const excelView = contentContainer.querySelector(
     'sp-action-button[value="exceltable"]'
   );
   excelView?.addEventListener("click", () => {
-    formBuilderView.style.display = "none";
-    formPreviewView.style.display = "none";
-    formExcelView.style.display = "block";
+    canvasContainer.innerHTML = formExcelContainer;
   });
-
-
-  const propsModalCloseButton = propsModal.querySelector(".modal-content span.close");
-  propsModalCloseButton.addEventListener("click", ()=> {
-    propsModal.classList.toggle("open");
-  })
 }
-
-

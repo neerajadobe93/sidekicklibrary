@@ -26,7 +26,6 @@ sp-split-view {
   width: 100%;
 }
 
-
 .details-container {
   width: auto;
   display: flex;
@@ -68,13 +67,13 @@ sp-split-view {
   overflow-y: hidden;
 }
 
-.view .action-bar {
+.action-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.view .action-bar sp-action-group {
+.action-bar sp-action-group {
   padding: 10px;
 }
 
@@ -97,37 +96,30 @@ sp-split-view {
 /**  Custom **/
 
 .formbuilder-list {
-  border: 1px red solid;
+  border: 2px white dashed;
   margin: auto;
   width: 30%;
-  min-height: 200px;
+  min-height: 100px;
   margin-top: 10%;
-  color: red;
+  color: white;
   list-style: none;
   padding: 50px;
 }
 
 .formbuilder-list.drag-over {
-  border: 2px dashed red;
+  border: 2px dashed white;
 }
 
 .formbuilder-list.empty::before {
-  content: "Add your element here this is drag zone";
+  content: "Drag your First Element from left";
   display: block;
   text-align: center;
+  margin-top: 30px;
 }
 
 .propsmodal {
   display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  transition: width 0.3s ease-in-out;
-  z-index: 9999;
+  /* z-index: 9999; */
 }
 
 .propsmodal.open {
@@ -135,11 +127,35 @@ sp-split-view {
   width: 300px;
 }
 
-
 formpreview-renderer {
-    display: none;
+  display: none;
 }
 
 formexcel-renderer {
-    display: none;
+  display: none;
+}
+
+.component-wrapper {
+  position: relative;
+  margin-top: 10px;
+  display: flex;
+  color: white;
+}
+
+.component-wrapper .input-component {
+  display: block;
+  margin-right: 0px;
+}
+
+.component-wrapper .input-component label{
+  display: block;
+}
+
+
+.component-wrapper .input-component input{
+  padding: 10px;
+}
+
+.component-wrapper .compnent_wizard {
+  width: 10px;
 }
