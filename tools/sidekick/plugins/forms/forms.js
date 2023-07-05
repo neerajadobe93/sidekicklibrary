@@ -17,6 +17,7 @@ import {
 import { formBuilderClient } from "./formBuilderClient.js";
 import { registerContentContainerEvents } from "./formutils.js";
 import { sidecarmenu } from "./sidecar-menu.js";
+import { excelUtils } from "./excelviewutil.js";
 
 export async function decorate(container, data, query) {
   // container.dispatchEvent(new CustomEvent('ShowLoader'));
@@ -42,9 +43,11 @@ export async function decorate(container, data, query) {
   const formExcelContainer = renderFormExcelContainer();
 
   canvasContainer.innerHTML = formbuilderContainer;
+ 
 
+  const excUtils = excelUtils();
 
-  registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer);
+  registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils);
   const compUtils = componentUtils();
   const formClient = formBuilderClient(contentContainer, compUtils);
 }

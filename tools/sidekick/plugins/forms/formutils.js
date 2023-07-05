@@ -3,11 +3,9 @@ export function registerContentContainerEvents(
   canvasContainer,
   formbuilderContainer,
   formpreviewContainer,
-  formExcelContainer
+  formExcelContainer,
+  excelUtils
 ) {
-
-
-  
   const builderView = contentContainer.querySelector(
     'sp-action-button[value="builder"]'
   );
@@ -33,6 +31,16 @@ export function registerContentContainerEvents(
     'sp-action-button[value="exceltable"]'
   );
   excelView?.addEventListener("click", () => {
+    const table = excelUtils.createExcelTable();
     canvasContainer.innerHTML = formExcelContainer;
+    const excelViewContainer = canvasContainer.querySelector(".excelview-container");
+    excelViewContainer.appendChild(table)
+
+
+    const copyButton = canvasContainer.querySelector(".actions sp-button");
+    copyButton.addEventListener("click", () => {
+      excelUtils.copyToClipBoard(table);
+    })
   });
+
 }

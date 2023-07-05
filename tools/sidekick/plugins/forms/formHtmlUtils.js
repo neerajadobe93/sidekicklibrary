@@ -14,8 +14,6 @@ export function renderScaffolding() {
     `;
 }
 
-
-
 export function renderContentDrawerSplitContainer() {
   return `
       <sp-split-view
@@ -27,15 +25,15 @@ export function renderContentDrawerSplitContainer() {
             <div class="action-bar">
               <sp-action-group compact selects="single" selected="builder">
                 <sp-action-button value="builder">
-                    <sp-icon-device-phone slot="icon"></sp-icon-device-phone>
+                    <sp-icon-magic-wand slot="icon"></sp-icon-magic-wand>
                     Form Builder
                 </sp-action-button>
                 <sp-action-button value="preview">
-                    <sp-icon-device-tablet slot="icon"></sp-icon-device-tablet>
+                    <sp-icon-preview slot="icon"></sp-icon-preview>
                     Form Preview
                 </sp-action-button>
                 <sp-action-button value="exceltable">
-                    <sp-icon-device-desktop slot="icon"></sp-icon-device-desktop>
+                    <sp-icon-copy slot="icon"></sp-icon-copy>
                     Excel Table
                 </sp-action-button>
               </sp-action-group>
@@ -47,9 +45,8 @@ export function renderContentDrawerSplitContainer() {
             </div> 
           
       </sp-split-view>
-  `
+  `;
 }
-
 
 export function renderFormBuilderContainer() {
   return `
@@ -83,28 +80,33 @@ export function renderFormBuilderContainer() {
 
         </sp-split-view>
 
-  `
+  `;
 }
-
-
 
 export function renderFormPreViewContainer() {
   return `
   
        <div> form preview container </div>
 
-  `
+  `;
 }
-
-
 
 export function renderFormExcelContainer() {
-  return `
-       <div>  form excel container </div>
+  return ` <sp-split-view
+  vertical
+  resizable
+  primary-min="800"
+  primary-size="2600"
+  secondary-min="200"
+  splitter-pos="250"
+>
+      <div class="excelview-container">
+      </div>
 
-  `
+
+      <div class="actions">
+          <sp-button class="copy-button">Copy</sp-button>
+      </div>
+</sp-split-view>
+`;
 }
-
-
-
-

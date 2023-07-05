@@ -42,21 +42,18 @@ export function componentUtils() {
   componentUtils.registerEvents = function (
     component,
     propsModal,
-    componentList,
-    updateComponentList
+    client,
+    componentJson
   ) {
     const propertiesButton = component.querySelector("button.settings-button");
     propertiesButton.addEventListener("click", () => {
+      client.renderPropsModal();
       propsModal.classList.toggle("open");
     });
 
     const removeButton = component.querySelector("button.delete-button");
     removeButton.addEventListener("click", () => {
-      const index = componentList.indexOf(component);
-      if (index !== -1) {
-        componentList.splice(index, 1);
-        updateComponentList();
-      }
+      client.removeComponent(componentJson);
     });
   };
 
@@ -128,6 +125,10 @@ export function componentUtils() {
 
     return component;
   }
+
+
+
+
 
   return componentUtils;
 }
