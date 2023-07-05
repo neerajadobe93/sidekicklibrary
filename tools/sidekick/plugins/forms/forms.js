@@ -43,8 +43,9 @@ export async function decorate(container, data, query) {
   const formExcelContainer = renderFormExcelContainer();
 
   canvasContainer.innerHTML = formbuilderContainer;
- 
+
   
+ 
   const excUtils = excelUtils(container);
 
   registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils);

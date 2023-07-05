@@ -26,6 +26,12 @@ sp-split-view {
   width: 100%;
 }
 
+.sidecarmenu sp-sidenav-item {
+  border-top: 1px solid #4a5361;
+  border-bottom: 1px solid #4a5361;
+  margin-top: 10px;
+}
+
 .details-container {
   width: auto;
   display: flex;
@@ -185,4 +191,8 @@ formexcel-renderer {
 
 .component-wrapper .compnent_wizard button.settings-button {
   font-size: 1.8rem;
+}
+
+.component-wrapper:focus {
+  border: 1px red solid;
 }
