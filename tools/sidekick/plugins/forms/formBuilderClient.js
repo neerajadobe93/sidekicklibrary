@@ -11,7 +11,7 @@ export function formBuilderClient(contentContainer, canvasContainer,componentUti
   };
 
   client.removeComponent = function (componentJson) {
-    client.componentListJson = client.componentListJson.filter( component => component.Type !== componentJson.Type);
+    client.componentListJson = client.componentListJson.filter( component => component.Id !== componentJson.Id);
     client.updateComponentList();
   };
 
@@ -83,8 +83,9 @@ export function formBuilderClient(contentContainer, canvasContainer,componentUti
 
   client.updateComponentList = function () {
     dropzone.innerHTML = "";
-
+    let compId = 1;
     client.componentListJson.forEach((componentJson) => {
+      componentJson["Id"] = compId++;
       const listItem = document.createElement("li");
       const component = client.componentUtils.createComponent(componentJson);
       client.componentUtils.registerEvents(

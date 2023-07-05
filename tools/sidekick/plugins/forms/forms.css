@@ -108,6 +108,8 @@ sp-split-view {
 
 .formbuilder-list.drag-over {
   border: 2px dashed white;
+  background-color: white;
+  opacity: 0.2;
 }
 
 .formbuilder-list.empty::before {
