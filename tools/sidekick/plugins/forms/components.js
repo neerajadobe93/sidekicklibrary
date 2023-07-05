@@ -43,12 +43,21 @@ export function componentUtils() {
     component,
     propsModal,
     client,
-    componentJson
+    componentJson,
+    canvasContainer
   ) {
     const propertiesButton = component.querySelector("button.settings-button");
     propertiesButton.addEventListener("click", () => {
       client.renderPropsModal();
       propsModal.classList.toggle("open");
+      const canvasSplitter = canvasContainer.querySelector("sp-split-view");
+      if (propsModal.classList.contains("open")) {
+        for (let pos = 2000; pos > 1000; pos -= 100) {
+          canvasSplitter.setAttribute("splitter-pos", pos);
+        }
+      } else {
+        canvasSplitter.setAttribute("splitter-pos", 2000);
+      }
     });
 
     const removeButton = component.querySelector("button.delete-button");
@@ -125,10 +134,6 @@ export function componentUtils() {
 
     return component;
   }
-
-
-
-
 
   return componentUtils;
 }

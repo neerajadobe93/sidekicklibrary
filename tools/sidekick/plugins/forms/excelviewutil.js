@@ -1,5 +1,6 @@
-export function excelUtils() {
+export function excelUtils( container) {
   const utils = {};
+   utils.container = container;
 
   utils.createExcelTable = function () {
     var table = document.createElement("table");
@@ -112,9 +113,9 @@ export function excelUtils() {
     }
   
     navigator.clipboard.writeText(tableText).then(function() {
-      alert("Table copied to clipboard!");
+      utils.container.dispatchEvent(new CustomEvent('Toast', { detail: { message: 'Copied Forms Excel'} }));
     }).catch(function(error) {
-      console.error("Unable to copy table: ", error);
+      utils.container.dispatchEvent(new CustomEvent('Toast', { detail: { message: 'Unable Copied Block'} }));
     });
   };
 

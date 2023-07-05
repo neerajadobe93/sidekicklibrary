@@ -18,8 +18,9 @@ export function renderContentDrawerSplitContainer() {
   return `
       <sp-split-view
         vertical
+        primary-min="200"
         primary-size="2600"
-        secondary-min="200"
+        secondary-min="1200"
         splitter-pos="250"
       >
             <div class="action-bar">
@@ -55,7 +56,6 @@ export function renderFormBuilderContainer() {
           horizontal
           resizable
           primary-size="2600"
-          secondary-min="300"
           splitter-pos="250"
         >
 

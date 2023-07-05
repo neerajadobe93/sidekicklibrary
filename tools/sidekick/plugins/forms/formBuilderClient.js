@@ -1,4 +1,4 @@
-export function formBuilderClient(contentContainer, componentUtils) {
+export function formBuilderClient(contentContainer, canvasContainer,componentUtils) {
   const client = {};
   client.componentListJson = [];
   client.componentUtils = componentUtils;
@@ -77,7 +77,7 @@ export function formBuilderClient(contentContainer, componentUtils) {
 
     propsContainer.appendChild(labelInput);
     propsContainer.appendChild(labelInput);
-    
+    propsModal.innerHTML = "";
     propsModal.appendChild(propsContainer);
   }
 
@@ -92,6 +92,7 @@ export function formBuilderClient(contentContainer, componentUtils) {
         propsModal,
         client,
         componentJson,
+        canvasContainer
       );
       listItem.appendChild(component);
       dropzone.appendChild(listItem);
