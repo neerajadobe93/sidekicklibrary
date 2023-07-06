@@ -112,7 +112,7 @@ export function componentUtils() {
         break;
       default:
         const textInputLabel = document.createElement("label");
-        textInputLabel.textContent = "Question";
+        textInputLabel.textContent = componentJson.Label;
         const textInput = document.createElement("input");
         textInput.placeholder = "Enter your text here";
         textInput.disabled = true;

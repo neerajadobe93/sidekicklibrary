@@ -10,6 +10,7 @@ export function formBuilderClient(
       Type: "text",
       Label: "Name",
       Mandatory: false,
+      
     },
   ];
   client.componentUtils = componentUtils;
@@ -53,7 +54,6 @@ export function formBuilderClient(
   });
 
   client.renderPropsModal = function (componentId) {
-    console.log(componentId);
     const selectedComponent = client.componentListJson.find(comp => comp.Id === componentId);
     const propsContainer = document.createElement("div");
     propsContainer.classList.add("props-container");
@@ -61,7 +61,7 @@ export function formBuilderClient(
     // Create the Name input element
     const nameLabel = document.createElement("label");
     nameLabel.setAttribute("for", "name-input");
-    nameLabel.textContent = "Name:";
+    nameLabel.textContent = "Field Name";
     const nameInput = document.createElement("input");
     nameInput.type = "text";
     nameInput.value = selectedComponent.Label;
@@ -69,17 +69,22 @@ export function formBuilderClient(
     propsContainer.appendChild(nameLabel);
     propsContainer.appendChild(nameInput);
 
+    nameInput.addEventListener("change", ( event )=>{
+      selectedComponent.Label = event.target.value;
+      client.updateComponentList();
+    })
+
     // Create the Type input element
-    const typeLabel = document.createElement("label");
-    typeLabel.setAttribute("for", "type-input");
-    typeLabel.textContent = "Type:";
+    const placholderLabel = document.createElement("label");
+    placholderLabel.setAttribute("for", "type-input");
+    placholderLabel.textContent = "Placeholder";
 
-    const typeInput = document.createElement("input");
-    typeInput.type = "text";
-    typeInput.id = "type-input";
+    const placholderInput = document.createElement("input");
+    placholderInput.type = "text";
+    placholderInput.id = "type-input";
 
-    propsContainer.appendChild(typeLabel);
-    propsContainer.appendChild(typeInput);
+    propsContainer.appendChild(placholderLabel);
+    propsContainer.appendChild(placholderInput);
 
     // Create the Label input element
     const labelLabel = document.createElement("label");
