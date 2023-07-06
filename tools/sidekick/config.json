@@ -23,6 +23,12 @@
       "environments": ["edit"],
       "event": "foo",
       "includePaths": ["**.docx**"]
+    },
+    {
+      "id": "foo2",
+      "title": "Foo2",
+      "event": "foo",
+      "includePaths": ["**.docx**"]
     }
   ]
 }
