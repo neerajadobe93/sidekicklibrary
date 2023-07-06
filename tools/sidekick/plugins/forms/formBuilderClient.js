@@ -52,7 +52,9 @@ export function formBuilderClient(
     client.updateComponentList(true);
   });
 
-  client.renderPropsModal = function () {
+  client.renderPropsModal = function (componentId) {
+    console.log(componentId);
+    const selectedComponent = client.componentListJson.find(comp => comp.Id === componentId);
     const propsContainer = document.createElement("div");
     propsContainer.classList.add("props-container");
 
@@ -62,6 +64,7 @@ export function formBuilderClient(
     nameLabel.textContent = "Name:";
     const nameInput = document.createElement("input");
     nameInput.type = "text";
+    nameInput.value = selectedComponent.Label;
     nameInput.id = "name-input";
     propsContainer.appendChild(nameLabel);
     propsContainer.appendChild(nameInput);
@@ -87,7 +90,7 @@ export function formBuilderClient(
     labelInput.type = "text";
     labelInput.id = "label-input";
 
-    propsContainer.appendChild(labelInput);
+    propsContainer.appendChild(labelLabel);
     propsContainer.appendChild(labelInput);
     propsModal.innerHTML = "";
     propsModal.appendChild(propsContainer);

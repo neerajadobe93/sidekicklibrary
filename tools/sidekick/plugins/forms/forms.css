@@ -2,6 +2,18 @@
   height: 100%;
 }
 
+.form-builder1{
+  height: 100%;
+}
+
+.form-excel1 {
+  height: 100%;
+}
+
+.form-preview1 {
+  height: 100%;
+}
+
 sp-split-view {
   height: 100%;
 }
@@ -182,12 +194,10 @@ formexcel-renderer {
   font-size: 1rem;
 }
 
-
 .component-wrapper .compnent_wizard button.delete-button {
   background-color: #d73027;
   margin-top: 5px;
 }
-
 
 .component-wrapper .compnent_wizard button.settings-button {
   font-size: 1.8rem;
@@ -197,9 +207,15 @@ formexcel-renderer {
   border: 1px red solid;
 }
 
-
 .component-wrapper.zoomout .input-component input {
   animation: zoomOut 1s ease forwards !important;
+}
+
+.props-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }
 
 /**  Animation **/

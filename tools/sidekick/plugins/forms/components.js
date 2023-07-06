@@ -3,6 +3,7 @@ export function componentUtils() {
 
   componentUtils.createComponent = function (componentJson) {
     const componentWrapper = document.createElement("div");
+    componentWrapper.id = componentJson.Id;
     componentWrapper.classList.add("component-wrapper");
     const compWizard = createComponentWizards();
     const inputComponent = getInputComponent(componentJson);
@@ -48,7 +49,7 @@ export function componentUtils() {
   ) {
     const propertiesButton = component.querySelector("button.settings-button");
     propertiesButton.addEventListener("click", () => {
-      client.renderPropsModal();
+      client.renderPropsModal(componentJson.Id);
       propsModal.classList.toggle("open");
       const canvasSplitter = canvasContainer.querySelector("sp-split-view");
       if (propsModal.classList.contains("open")) {
