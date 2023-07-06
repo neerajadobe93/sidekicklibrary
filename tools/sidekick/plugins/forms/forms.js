@@ -38,19 +38,21 @@ export async function decorate(container, data, query) {
   const canvasContainer = contentContainer.querySelector(".canvas-container");
 
 
-  const formbuilderContainer = renderFormBuilderContainer();
-  const formpreviewContainer = renderFormPreViewContainer();
-  const formExcelContainer = renderFormExcelContainer();
+  const formbuilderContainer = createTag("div", {class: "form-builder1"},renderFormBuilderContainer());
+  const formpreviewContainer = createTag("div", {class: "form-preview1"},renderFormPreViewContainer());
+  const formExcelContainer = createTag("div", {class: "form-excel1"},renderFormExcelContainer());
 
-  canvasContainer.innerHTML = formbuilderContainer;
+  canvasContainer.appendChild(formbuilderContainer);
+  canvasContainer.appendChild(formpreviewContainer);
+  canvasContainer.appendChild(formExcelContainer);
 
-  
- 
-  const excUtils = excelUtils(container);
-
-  registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils);
+  formpreviewContainer.style.display = "none";
+  formExcelContainer.style.display = "none";
   const compUtils = componentUtils();
+
   const formClient = formBuilderClient(contentContainer, canvasContainer, compUtils);
+  const excUtils = excelUtils(container, formClient);
+  registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils);
   formClient.updateComponentList();
 }
 

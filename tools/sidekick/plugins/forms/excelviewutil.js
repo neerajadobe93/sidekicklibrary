@@ -1,6 +1,7 @@
-export function excelUtils( container) {
+export function excelUtils(container, formclient) {
   const utils = {};
-   utils.container = container;
+  utils.container = container;
+  utils.formclient = formclient;
 
   utils.createExcelTable = function () {
     var table = document.createElement("table");
@@ -9,70 +10,9 @@ export function excelUtils( container) {
 
     var thead = document.createElement("thead");
     var theadRow = document.createElement("tr");
-    var formFields = [
-      {
-        Name: "yourDetails",
-        Type: "plaintext",
-        Label: "Your Details",
-        Mandatory: "",
-        Min: "",
-        Max: "",
-        Options: "",
-        Repeatable: "",
-      },
-      {
-        Name: "yourDetailsFirstName",
-        Type: "text",
-        Label: "First Name",
-        Mandatory: "true",
-        Min: "0",
-        Max: "200",
-        Options: "",
-        Repeatable: "",
-      },
-      {
-        Name: "yourDetailsLastName",
-        Type: "text",
-        Label: "Last Name",
-        Mandatory: "true",
-        Min: "0",
-        Max: "200",
-        Options: "",
-        Repeatable: "",
-      },
-      {
-        Name: "yourDetailsEmail",
-        Type: "email",
-        Label: "Email",
-        Mandatory: "true",
-        Min: "",
-        Max: "",
-        Options: "",
-        Repeatable: "",
-      },
-      {
-        Name: "send",
-        Type: "submit",
-        Label: "Send",
-        Mandatory: "",
-        Min: "",
-        Max: "",
-        Options: "",
-        Repeatable: "",
-      },
-    ];
-
+    var formFields = formclient.componentListJson;
     var thStyles = "border: 1px solid black; padding: 8px; text-align: left;";
-    var thLabels = [
-      "Field Name",
-      "Type",
-      "Label",
-      "Mandatory",
-      "Min",
-      "Max",
-      "Options",
-      "Repeatable",
-    ];
+    var thLabels = ["Name", "Type", "Label", "Mandatory"];
 
     thLabels.forEach(function (label) {
       var th = document.createElement("th");
@@ -89,10 +29,12 @@ export function excelUtils( container) {
     formFields.forEach(function (field) {
       var row = document.createElement("tr");
       for (var prop in field) {
-        var cell = document.createElement("td");
-        cell.style = "border: 1px solid black; padding: 8px;";
-        cell.textContent = field[prop];
-        row.appendChild(cell);
+        if (prop != "Id") {
+          var cell = document.createElement("td");
+          cell.style = "border: 1px solid black; padding: 8px;";
+          cell.textContent = field[prop];
+          row.appendChild(cell);
+        }
       }
       tbody.appendChild(row);
     });
@@ -103,20 +45,31 @@ export function excelUtils( container) {
   };
 
   utils.copyToClipBoard = function (table) {
-    var tableText = '';
+    var tableText = "";
 
     for (var i = 0; i < table.rows.length; i++) {
       for (var j = 0; j < table.rows[i].cells.length; j++) {
-        tableText += table.rows[i].cells[j].textContent + '\t';
+        tableText += table.rows[i].cells[j].textContent + "\t";
       }
-      tableText += '\n';
+      tableText += "\n";
     }
-  
-    navigator.clipboard.writeText(tableText).then(function() {
-      utils.container.dispatchEvent(new CustomEvent('Toast', { detail: { message: 'Copied Forms Excel'} }));
-    }).catch(function(error) {
-      utils.container.dispatchEvent(new CustomEvent('Toast', { detail: { message: 'Unable Copied Block'} }));
-    });
+
+    navigator.clipboard
+      .writeText(tableText)
+      .then(function () {
+        utils.container.dispatchEvent(
+          new CustomEvent("Toast", {
+            detail: { message: "Copied Forms Excel" },
+          })
+        );
+      })
+      .catch(function (error) {
+        utils.container.dispatchEvent(
+          new CustomEvent("Toast", {
+            detail: { message: "Unable Copied Block" },
+          })
+        );
+      });
   };
 
   return utils;
