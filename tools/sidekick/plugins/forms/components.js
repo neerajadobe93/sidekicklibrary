@@ -55,7 +55,7 @@ export function componentUtils() {
       propsModal.classList.toggle("open");
       const canvasSplitter = canvasContainer.querySelector(".form-builder sp-split-view");
       if (propsModal.classList.contains("open")) {
-        let pos = 2000;
+        let pos = 1500;
         const decreasePos = () => {
           canvasSplitter.setAttribute("splitter-pos", pos);
           pos -= 50;
@@ -70,7 +70,7 @@ export function componentUtils() {
         const increasePos = () => {
           canvasSplitter.setAttribute("splitter-pos", pos);
           pos += 50;
-          if (pos <= 2000) {
+          if (pos <= 1500) {
             setTimeout(increasePos, 80);
           }
         };

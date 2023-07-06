@@ -58,6 +58,15 @@ export function formBuilderClient(
     const propsContainer = document.createElement("div");
     propsContainer.classList.add("props-container");
 
+    let propCompHeader = document.createElement("h1");
+    propCompHeader.textContent = "Properties"
+    propsContainer.appendChild(propCompHeader);
+    propsContainer.style.alignContent="center";
+    
+    let divider = document.createElement("sp-divider");
+    propsContainer.appendChild(divider);
+
+
     let propComp1 = document.createElement("div");
     // Create the Name input element
     const nameLabel = document.createElement("label");
@@ -117,6 +126,27 @@ export function formBuilderClient(
     propComp3.appendChild(labelLabel);
     propComp3.appendChild(labelInput);
     propsContainer.appendChild(propComp3);
+
+
+     // Create the Label input element
+     let propComp4 = document.createElement("div");
+     propComp4.classList.add("mandatory-switch");
+    let requiredHtml = `
+      <label> Required </label>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label> 
+     `
+
+     propComp4.innerHTML = requiredHtml;
+
+     const mandatoryInput = propComp4.querySelector("input");
+     mandatoryInput.addEventListener("change", () => {
+        selectedComponent.Mandatory = mandatoryInput.checked;
+     })
+    
+     propsContainer.appendChild(propComp4);
 
     propsModal.innerHTML = "";
     propsModal.appendChild(propsContainer);
