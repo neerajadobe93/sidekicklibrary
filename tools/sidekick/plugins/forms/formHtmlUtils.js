@@ -6,7 +6,7 @@ export function renderScaffolding() {
   return /* html */ `
     <sp-split-view primary-size="350" secondary-min="200" dir="ltr" splitter-pos="250" resizable>
     <div class="sidecarmenu">
-      <div class="search">  <sp-search></sp-search>   </div>
+      <div class="search sidecarmenu-search">  <sp-search></sp-search>   </div>
       <div class="list-container"> </div>
     </div>
     <div class="content"></div>

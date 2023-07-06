@@ -33,8 +33,13 @@ export async function decorate(container, data, query) {
   );
   container.append(pageContainer);
 
-  const sidecarMenu = sidecarmenu(createTag, pageContainer);
-  sidecarMenu.addComponents(data);
+  const sidecarMenu = sidecarmenu(createTag, pageContainer ,data );
+  sidecarMenu.addComponents();
+
+  const sidecarSearch = pageContainer.querySelector(".sidecarmenu-search sp-search");
+  sidecarSearch.addEventListener("input" , (event) =>{
+    sidecarMenu.filterComponents(event.target.value);
+  })
 
   // content container
 
