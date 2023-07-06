@@ -27,8 +27,7 @@
     {
       "id": "foo2",
       "title": "Foo2",
-      "event": "foo",
-      "includePaths": ["**.docx**"]
+      "event": "foo"
     }
   ]
 }
