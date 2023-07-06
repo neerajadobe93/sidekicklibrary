@@ -51,9 +51,10 @@ export function componentUtils() {
   ) {
     const propertiesButton = component.querySelector("button.settings-button");
     propertiesButton.addEventListener("click", () => {
+      console.log("running this");
       client.renderPropsModal(componentJson.Id);
       propsModal.classList.toggle("open");
-      const canvasSplitter = canvasContainer.querySelector("sp-split-view");
+      const canvasSplitter = canvasContainer.querySelector(".form-builder sp-split-view");
       if (propsModal.classList.contains("open")) {
         for (let pos = 2000; pos > 1000; pos -= 100) {
           canvasSplitter.setAttribute("splitter-pos", pos);
