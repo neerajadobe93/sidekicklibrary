@@ -20,7 +20,7 @@
     {
       "id": "foo",
       "title": "Foo",
-      "environments": ["edit","dev"],
+      "environments": ["edit"],
       "event": "foo",
       "includePaths": ["**.docx**"]
     }
