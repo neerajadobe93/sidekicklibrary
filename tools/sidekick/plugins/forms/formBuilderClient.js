@@ -9,8 +9,8 @@ export function formBuilderClient(
       Name: "name",
       Type: "text",
       Label: "Name",
+      Placeholder: "Enter your text",
       Mandatory: false,
-      
     },
   ];
   client.componentUtils = componentUtils;
@@ -58,6 +58,7 @@ export function formBuilderClient(
     const propsContainer = document.createElement("div");
     propsContainer.classList.add("props-container");
 
+    let propComp1 = document.createElement("div");
     // Create the Name input element
     const nameLabel = document.createElement("label");
     nameLabel.setAttribute("for", "name-input");
@@ -66,15 +67,20 @@ export function formBuilderClient(
     nameInput.type = "text";
     nameInput.value = selectedComponent.Label;
     nameInput.id = "name-input";
-    propsContainer.appendChild(nameLabel);
-    propsContainer.appendChild(nameInput);
+    propComp1.appendChild(nameLabel);
+    propComp1.appendChild(nameInput);
+
+    propsContainer.appendChild(propComp1);
 
     nameInput.addEventListener("change", ( event )=>{
-      selectedComponent.Label = event.target.value;
-      client.updateComponentList();
+      if (event.target.value.length === 0) {
+        event.target.value = "question";
+      }
     })
 
     // Create the Type input element
+    let propComp2 = document.createElement("div");
+
     const placholderLabel = document.createElement("label");
     placholderLabel.setAttribute("for", "type-input");
     placholderLabel.textContent = "Placeholder";
@@ -82,11 +88,18 @@ export function formBuilderClient(
     const placholderInput = document.createElement("input");
     placholderInput.type = "text";
     placholderInput.id = "type-input";
+    placholderInput.value = selectedComponent.Placeholder;
+    placholderInput.addEventListener("change", (event) =>{
+      selectedComponent.Placeholder= event.target.value;
+      client.updateComponentList();
+    });
+    propComp2.appendChild(placholderLabel);
+    propComp2.appendChild(placholderInput);
 
-    propsContainer.appendChild(placholderLabel);
-    propsContainer.appendChild(placholderInput);
+    propsContainer.appendChild(propComp2)
 
     // Create the Label input element
+    let propComp3 = document.createElement("div");
     const labelLabel = document.createElement("label");
     labelLabel.setAttribute("for", "label-input");
     labelLabel.textContent = "Label:";
@@ -94,9 +107,17 @@ export function formBuilderClient(
     const labelInput = document.createElement("input");
     labelInput.type = "text";
     labelInput.id = "label-input";
+    labelInput.value = selectedComponent.Label;
+    labelInput.addEventListener("change", (event) =>{
+      selectedComponent.Label= event.target.value;
+      client.updateComponentList();
+    })
 
-    propsContainer.appendChild(labelLabel);
-    propsContainer.appendChild(labelInput);
+
+    propComp3.appendChild(labelLabel);
+    propComp3.appendChild(labelInput);
+    propsContainer.appendChild(propComp3);
+
     propsModal.innerHTML = "";
     propsModal.appendChild(propsContainer);
   };

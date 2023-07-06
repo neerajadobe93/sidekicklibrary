@@ -17,7 +17,9 @@ export function componentUtils() {
       Name: "",
       Type: "",
       Label: "",
+      Placeholder: "",
       Mandatory: false,
+
     };
 
     switch (type) {
@@ -103,9 +105,9 @@ export function componentUtils() {
         break;
       case "textarea":
         const textAreaLabel = document.createElement("label");
-        textAreaLabel.textContent = "Question";
+        textAreaLabel.textContent = componentJson.Label;
         const textAreaInput = document.createElement("input");
-        textAreaInput.placeholder = "Enter your text here";
+        textAreaInput.placeholder = componentJson.Placeholder;
         textAreaInput.disabled = true;
         component.appendChild(textAreaLabel);
         component.appendChild(textAreaInput);
@@ -114,7 +116,7 @@ export function componentUtils() {
         const textInputLabel = document.createElement("label");
         textInputLabel.textContent = componentJson.Label;
         const textInput = document.createElement("input");
-        textInput.placeholder = "Enter your text here";
+        textInput.placeholder = componentJson.Placeholder;
         textInput.disabled = true;
         component.appendChild(textInputLabel);
         component.appendChild(textInput);

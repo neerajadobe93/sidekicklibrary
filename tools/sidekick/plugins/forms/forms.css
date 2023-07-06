@@ -215,7 +215,13 @@ formexcel-renderer {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  align-items: center;
+  align-items: flex-start;
+  margin: 10px;
+}
+
+.props-container label {
+  display: block;
+  margin-bottom: 10px;
 }
 
 /**  Animation **/
