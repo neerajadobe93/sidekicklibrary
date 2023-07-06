@@ -51,16 +51,30 @@ export function componentUtils() {
   ) {
     const propertiesButton = component.querySelector("button.settings-button");
     propertiesButton.addEventListener("click", () => {
-      console.log("running this");
       client.renderPropsModal(componentJson.Id);
       propsModal.classList.toggle("open");
       const canvasSplitter = canvasContainer.querySelector(".form-builder sp-split-view");
       if (propsModal.classList.contains("open")) {
-        for (let pos = 2000; pos > 1000; pos -= 100) {
+        let pos = 2000;
+        const decreasePos = () => {
           canvasSplitter.setAttribute("splitter-pos", pos);
-        }
+          pos -= 50;
+          if (pos > 1100) {
+            setTimeout(decreasePos, 80);
+          }
+        };
+      
+        decreasePos();
       } else {
-        canvasSplitter.setAttribute("splitter-pos", 2000);
+        let pos = parseInt(canvasSplitter.getAttribute("splitter-pos"));
+        const increasePos = () => {
+          canvasSplitter.setAttribute("splitter-pos", pos);
+          pos += 50;
+          if (pos <= 2000) {
+            setTimeout(increasePos, 80);
+          }
+        };
+        increasePos();
       }
     });
 
