@@ -1,21 +1,28 @@
 {
-    "project": "SideKickLibarary",
-    "plugins": [
-      {
-        "id": "library",
-        "title": "Library",
-        "environments": ["edit"],
-        "url": "/tools/sidekick/library.html",
-        "includePaths": ["**.docx**"],
-        "excludePaths": ["**.xls**"]
-      },
-      {
-        "id": "forms",
-        "title": "Forms",
-        "environments": ["edit"],
-        "url": "/tools/sidekick/library.html",
-        "excludePaths": ["**.docx**"],
-        "includePaths": ["**.xls**"]
-      }
-    ]
-  }
+  "project": "SideKickLibarary",
+  "plugins": [
+    {
+      "id": "library",
+      "title": "Library",
+      "environments": ["edit"],
+      "url": "/tools/sidekick/library.html",
+      "includePaths": ["**.docx**"],
+      "excludePaths": ["**.xls**"]
+    },
+    {
+      "id": "forms",
+      "title": "Forms",
+      "environments": ["edit"],
+      "url": "/tools/sidekick/library.html",
+      "excludePaths": ["**.docx**"],
+      "includePaths": ["**.xls**"]
+    },
+    {
+      "id": "foo",
+      "title": "Foo",
+      "environments": ["edit"],
+      "event": "foo",
+      "includePaths": ["**.docx**"]
+    }
+  ]
+}

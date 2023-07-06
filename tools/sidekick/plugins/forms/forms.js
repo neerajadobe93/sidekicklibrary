@@ -19,6 +19,11 @@ import { registerContentContainerEvents } from "./formutils.js";
 import { sidecarmenu } from "./sidecar-menu.js";
 import { excelUtils } from "./excelviewutil.js";
 
+
+function nodeParentWithClass(node, className) {
+  return node.closest('.' + className);
+}
+
 export async function decorate(container, data, query) {
   // container.dispatchEvent(new CustomEvent('ShowLoader'));
   const pageContainer = createTag(
@@ -38,9 +43,9 @@ export async function decorate(container, data, query) {
   const canvasContainer = contentContainer.querySelector(".canvas-container");
 
 
-  const formbuilderContainer = createTag("div", {class: "form-builder1"},renderFormBuilderContainer());
-  const formpreviewContainer = createTag("div", {class: "form-preview1"},renderFormPreViewContainer());
-  const formExcelContainer = createTag("div", {class: "form-excel1"},renderFormExcelContainer());
+  const formbuilderContainer = createTag("div", {class: "form-builder"},renderFormBuilderContainer());
+  const formpreviewContainer = createTag("div", {class: "form-preview"},renderFormPreViewContainer());
+  const formExcelContainer = createTag("div", {class: "form-excel"},renderFormExcelContainer());
 
   canvasContainer.appendChild(formbuilderContainer);
   canvasContainer.appendChild(formpreviewContainer);
@@ -54,6 +59,13 @@ export async function decorate(container, data, query) {
   const excUtils = excelUtils(container, formClient);
   registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils);
   formClient.updateComponentList();
+
+
+  container?.addEventListener("click", (event) => {
+     console.log(nodeParentWithClass(event.target, "component-wrapper"));
+  });
+
+
 }
 
 export default {

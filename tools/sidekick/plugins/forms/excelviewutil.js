@@ -12,7 +12,7 @@ export function excelUtils(container, formclient) {
     var theadRow = document.createElement("tr");
     var formFields = formclient.componentListJson;
     var thStyles = "border: 1px solid black; padding: 8px; text-align: left;";
-    var thLabels = ["Name", "Type", "Label", "Mandatory"];
+    var thLabels = ["Name", "Type", "Label", "Placeholder", "Mandatory"];
 
     thLabels.forEach(function (label) {
       var th = document.createElement("th");

@@ -17,7 +17,9 @@ export function componentUtils() {
       Name: "",
       Type: "",
       Label: "",
+      Placeholder: "",
       Mandatory: false,
+
     };
 
     switch (type) {
@@ -51,13 +53,28 @@ export function componentUtils() {
     propertiesButton.addEventListener("click", () => {
       client.renderPropsModal(componentJson.Id);
       propsModal.classList.toggle("open");
-      const canvasSplitter = canvasContainer.querySelector("sp-split-view");
+      const canvasSplitter = canvasContainer.querySelector(".form-builder sp-split-view");
       if (propsModal.classList.contains("open")) {
-        for (let pos = 2000; pos > 1000; pos -= 100) {
+        let pos = 2000;
+        const decreasePos = () => {
           canvasSplitter.setAttribute("splitter-pos", pos);
-        }
+          pos -= 50;
+          if (pos > 1100) {
+            setTimeout(decreasePos, 80);
+          }
+        };
+      
+        decreasePos();
       } else {
-        canvasSplitter.setAttribute("splitter-pos", 2000);
+        let pos = parseInt(canvasSplitter.getAttribute("splitter-pos"));
+        const increasePos = () => {
+          canvasSplitter.setAttribute("splitter-pos", pos);
+          pos += 50;
+          if (pos <= 2000) {
+            setTimeout(increasePos, 80);
+          }
+        };
+        increasePos();
       }
     });
 
@@ -103,18 +120,18 @@ export function componentUtils() {
         break;
       case "textarea":
         const textAreaLabel = document.createElement("label");
-        textAreaLabel.textContent = "Question";
+        textAreaLabel.textContent = componentJson.Label;
         const textAreaInput = document.createElement("input");
-        textAreaInput.placeholder = "Enter your text here";
+        textAreaInput.placeholder = componentJson.Placeholder;
         textAreaInput.disabled = true;
         component.appendChild(textAreaLabel);
         component.appendChild(textAreaInput);
         break;
       default:
         const textInputLabel = document.createElement("label");
-        textInputLabel.textContent = "Question";
+        textInputLabel.textContent = componentJson.Label;
         const textInput = document.createElement("input");
-        textInput.placeholder = "Enter your text here";
+        textInput.placeholder = componentJson.Placeholder;
         textInput.disabled = true;
         component.appendChild(textInputLabel);
         component.appendChild(textInput);
