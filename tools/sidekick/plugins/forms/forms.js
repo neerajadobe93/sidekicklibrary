@@ -19,6 +19,11 @@ import { registerContentContainerEvents } from "./formutils.js";
 import { sidecarmenu } from "./sidecar-menu.js";
 import { excelUtils } from "./excelviewutil.js";
 
+
+function nodeParentWithClass(node, className) {
+  return node.closest('.' + className);
+}
+
 export async function decorate(container, data, query) {
   // container.dispatchEvent(new CustomEvent('ShowLoader'));
   const pageContainer = createTag(
@@ -54,6 +59,13 @@ export async function decorate(container, data, query) {
   const excUtils = excelUtils(container, formClient);
   registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils);
   formClient.updateComponentList();
+
+
+  container?.addEventListener("click", (event) => {
+     console.log(nodeParentWithClass(event.target, "component-wrapper"));
+  });
+
+
 }
 
 export default {

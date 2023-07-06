@@ -158,5 +158,9 @@ export function formBuilderClient(
     }
   };
 
+  client.showComponentWizards = function( componentId ) {
+
+  }
+
   return client;
 }

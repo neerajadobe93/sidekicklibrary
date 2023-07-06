@@ -122,3 +122,23 @@ async function loadPage() {
 }
 
 loadPage();
+
+
+const foo = (event) => {
+  console.log("here");
+  console.log(event)
+  console.log(event.detail);
+  console.log(event.detail.data);
+};
+
+const sk = document.querySelector('helix-sidekick');
+if (sk) {
+  // sidekick already loaded
+  sk.addEventListener('custom:foo', foo);
+} else {
+  // wait for sidekick to be loaded
+  document.addEventListener('sidekick-ready', () => {
+    document.querySelector('helix-sidekick')
+      .addEventListener('custom:foo', foo);
+  }, { once: true });
+}
