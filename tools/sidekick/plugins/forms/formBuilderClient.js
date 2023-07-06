@@ -49,7 +49,7 @@ export function formBuilderClient(
     const componentType = event.dataTransfer.getData("text");
     const componentJson = componentUtils.getComponentJson(componentType);
     client.addComponent(componentJson);
-    client.updateComponentList();
+    client.updateComponentList(true);
   });
 
   client.renderPropsModal = function () {
@@ -93,9 +93,11 @@ export function formBuilderClient(
     propsModal.appendChild(propsContainer);
   };
 
-  client.updateComponentList = function () {
+  client.updateComponentList = function (showAnimation = false) {
     dropzone.innerHTML = "";
     let compId = 1;
+    const len = client.componentListJson.length;
+
     client.componentListJson.forEach((componentJson) => {
       componentJson["Id"] = compId++;
       const listItem = document.createElement("li");
@@ -107,8 +109,18 @@ export function formBuilderClient(
         componentJson,
         canvasContainer
       );
-      listItem.appendChild(component);
-      dropzone.appendChild(listItem);
+
+      if (showAnimation && len == compId - 1) {
+        component.classList.add("zoomout");
+        listItem.appendChild(component);
+        dropzone.appendChild(listItem);
+        setTimeout(() => {
+          component.classList.remove("zoomout");
+        }, 1000);
+      } else {
+        listItem.appendChild(component);
+        dropzone.appendChild(listItem);
+      }
     });
     if (!dropzone.hasChildNodes()) {
       dropzone.classList.add("empty");

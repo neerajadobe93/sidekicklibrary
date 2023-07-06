@@ -196,3 +196,19 @@ formexcel-renderer {
 .component-wrapper:focus {
   border: 1px red solid;
 }
+
+
+.component-wrapper.zoomout .input-component input {
+  animation: zoomOut 1s ease forwards !important;
+}
+
+/**  Animation **/
+
+@keyframes zoomOut {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
