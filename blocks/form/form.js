@@ -267,9 +267,7 @@ function constructPayload(form) {
     return jsonData;
   }
   
-  async function createForm(formURL) {
-    const { pathname } = new URL(formURL);
-    const data = await fetchForm(pathname);
+  export async function createForm(data) {
     const form = document.createElement("form");
     form.noValidate = true;
     data.forEach((fd) => {
@@ -298,7 +296,7 @@ function constructPayload(form) {
     });
     groupFieldsByFieldSet(form);
     // eslint-disable-next-line prefer-destructuring
-    form.dataset.action = pathname.split(".json")[0];
+    // form.dataset.action = pathname.split(".json")[0];
     form.addEventListener("submit", (event) =>
       formsubmissionHandler(form, event)
     );
@@ -351,16 +349,17 @@ function constructPayload(form) {
     return validate;
   }
   
-  function topFormExpressBox() {
-    const formExpressBoxDiv = document.createElement("div");
-    formExpressBoxDiv.className = "neeraj";
-    return formExpressBoxDiv;
-  }
   
   export default async function decorate(block) {
     const formLink = block.querySelector('a[href$=".json"]');
     if (formLink) {
-      const form = await createForm(formLink.href);
+      const { pathname } = new URL(formLink);
+      const data = await fetchForm(pathname);
+      const form = await createForm(data);
       formLink.replaceWith(form);
     }
+
+
+
+    
   }

@@ -4,7 +4,9 @@ export function registerContentContainerEvents(
   formbuilderContainer,
   formpreviewContainer,
   formExcelContainer,
-  excelUtils
+  excelUtils,
+  previewclient,
+  formClient
 ) {
   const builderView = contentContainer.querySelector(
     'sp-action-button[value="builder"]'
@@ -23,6 +25,12 @@ export function registerContentContainerEvents(
     formbuilderContainer.style.display = "none";
     formpreviewContainer.style.display = "block";
     formExcelContainer.style.display = "none";
+    const data = formClient.componentListJson;
+
+    formpreviewContainer.innerHTML = "";
+    previewclient.createForm(data).then((res) => {
+      formpreviewContainer.appendChild(res);
+    });
   });
 
   // excel button

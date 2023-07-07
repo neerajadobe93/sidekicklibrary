@@ -18,6 +18,7 @@ import { formBuilderClient } from "./formBuilderClient.js";
 import { registerContentContainerEvents } from "./formutils.js";
 import { sidecarmenu } from "./sidecar-menu.js";
 import { excelUtils } from "./excelviewutil.js";
+import { preview } from "./formpreview.js";
 
 
 function nodeParentWithClass(node, className) {
@@ -62,7 +63,9 @@ export async function decorate(container, data, query) {
 
   const formClient = formBuilderClient(contentContainer, canvasContainer, compUtils);
   const excUtils = excelUtils(container, formClient);
-  registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils);
+
+  const formPreviewClient =  preview();
+  registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils, formPreviewClient, formClient);
   formClient.updateComponentList();
 
 
