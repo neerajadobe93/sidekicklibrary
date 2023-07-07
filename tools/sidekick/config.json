@@ -10,7 +10,7 @@
       "excludePaths": ["**.xls**"]
     },
     {
-      "id": "forms",
+      "id": "formsInEditor",
       "title": "Forms",
       "environments": ["edit"],
       "url": "/tools/sidekick/library.html",
@@ -18,16 +18,9 @@
       "includePaths": ["**.xls**"]
     },
     {
-      "id": "foo",
-      "title": "Foo",
-      "environments": ["edit"],
-      "event": "foo",
-      "includePaths": ["**.docx**"]
-    },
-    {
-      "id": "foo2",
-      "title": "Foo2",
-      "event": "foo"
+      "id": "formsOnPage",
+      "title": "Forms",
+      "event": "forms"
     }
   ]
 }

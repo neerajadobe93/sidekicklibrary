@@ -124,7 +124,7 @@ async function loadPage() {
 loadPage();
 
 
-const foo = (event) => {
+const sidekickFormsEventHandler = (event) => {
   console.log("here");
   console.log(event)
   console.log(event.detail);
@@ -134,11 +134,11 @@ const foo = (event) => {
 const sk = document.querySelector('helix-sidekick');
 if (sk) {
   // sidekick already loaded
-  sk.addEventListener('custom:foo', foo);
+  sk.addEventListener('custom:forms', sidekickFormsEventHandler);
 } else {
   // wait for sidekick to be loaded
   document.addEventListener('sidekick-ready', () => {
     document.querySelector('helix-sidekick')
-      .addEventListener('custom:foo', foo);
+      .addEventListener('custom:forms', sidekickFormsEventHandler);
   }, { once: true });
 }
