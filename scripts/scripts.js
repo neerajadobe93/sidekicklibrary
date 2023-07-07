@@ -125,7 +125,6 @@ loadPage();
 
 
 const sidekickFormsEventHandler = async (event) => {
-  console.log("here");
   const curPage = window.location.href;
   const url = new URL(curPage);
   const res = await fetch(curPage);
@@ -139,12 +138,9 @@ const sidekickFormsEventHandler = async (event) => {
      alert("No Form Found on page")
   } else {
       const formJSONrelUrl = formElement.querySelector('a').getAttribute('href');
-      const formJsonURL = `https://${host}${formJSONrelUrl}`;
       const pluginURL= `https://${host}/tools/sidekick/library.html?plugin=forms&pageurl=${(url.pathname)}&formjson=${(formJSONrelUrl)}`;
       window.open(pluginURL, "_blank");
   }
-  console.log(formElement);
-
 };
 
 const sk = document.querySelector('helix-sidekick');

@@ -66,7 +66,7 @@ export async function decorate(container, data, query) {
 
   const formPreviewClient =  preview();
   registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils, formPreviewClient, formClient);
-  formClient.updateComponentList();
+  // formClient.updateComponentList();
 
 
   container?.addEventListener("click", (event) => {

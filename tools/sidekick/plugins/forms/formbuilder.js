@@ -4,15 +4,26 @@ export function formBuilderClient(
   componentUtils
 ) {
   const client = {};
-  client.componentListJson = [
-    {
-      Name: "name",
-      Type: "text",
-      Label: "Name",
-      Placeholder: "Enter your text",
-      Mandatory: false,
-    },
-  ];
+  client.componentListJson = [];
+  async function initializeComponentList() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Retrieve the value of the 'name' parameter
+    const formjsonURL = urlParams.get("formjson");
+    if (formjsonURL !== null) {
+      const res = await fetch(formjsonURL);
+      const resJson = await res.json();
+      const formdata = resJson.data;
+      formdata.forEach( formElement => {
+        client.componentListJson.push(formElement);
+      })
+   
+      client.updateComponentList();
+    }
+  }
+
+  initializeComponentList();
+
   client.componentUtils = componentUtils;
   const dropzone = contentContainer.querySelector(".dropzone");
   const propsModal = contentContainer.querySelector(".propsmodal");
@@ -54,18 +65,19 @@ export function formBuilderClient(
   });
 
   client.renderPropsModal = function (componentId) {
-    const selectedComponent = client.componentListJson.find(comp => comp.Id === componentId);
+    const selectedComponent = client.componentListJson.find(
+      (comp) => comp.Id === componentId
+    );
     const propsContainer = document.createElement("div");
     propsContainer.classList.add("props-container");
 
     let propCompHeader = document.createElement("h1");
-    propCompHeader.textContent = "Properties"
+    propCompHeader.textContent = "Properties";
     propsContainer.appendChild(propCompHeader);
-    propsContainer.style.alignContent="center";
-    
+    propsContainer.style.alignContent = "center";
+
     let divider = document.createElement("sp-divider");
     propsContainer.appendChild(divider);
-
 
     let propComp1 = document.createElement("div");
     // Create the Name input element
@@ -81,11 +93,11 @@ export function formBuilderClient(
 
     propsContainer.appendChild(propComp1);
 
-    nameInput.addEventListener("change", ( event )=>{
+    nameInput.addEventListener("change", (event) => {
       if (event.target.value.length === 0) {
         event.target.value = "question";
       }
-    })
+    });
 
     // Create the Type input element
     let propComp2 = document.createElement("div");
@@ -98,14 +110,14 @@ export function formBuilderClient(
     placholderInput.type = "text";
     placholderInput.id = "type-input";
     placholderInput.value = selectedComponent.Placeholder;
-    placholderInput.addEventListener("change", (event) =>{
-      selectedComponent.Placeholder= event.target.value;
+    placholderInput.addEventListener("change", (event) => {
+      selectedComponent.Placeholder = event.target.value;
       client.updateComponentList();
     });
     propComp2.appendChild(placholderLabel);
     propComp2.appendChild(placholderInput);
 
-    propsContainer.appendChild(propComp2)
+    propsContainer.appendChild(propComp2);
 
     // Create the Label input element
     let propComp3 = document.createElement("div");
@@ -117,36 +129,34 @@ export function formBuilderClient(
     labelInput.type = "text";
     labelInput.id = "label-input";
     labelInput.value = selectedComponent.Label;
-    labelInput.addEventListener("change", (event) =>{
-      selectedComponent.Label= event.target.value;
+    labelInput.addEventListener("change", (event) => {
+      selectedComponent.Label = event.target.value;
       client.updateComponentList();
-    })
-
+    });
 
     propComp3.appendChild(labelLabel);
     propComp3.appendChild(labelInput);
     propsContainer.appendChild(propComp3);
 
-
-     // Create the Label input element
-     let propComp4 = document.createElement("div");
-     propComp4.classList.add("mandatory-switch");
+    // Create the Label input element
+    let propComp4 = document.createElement("div");
+    propComp4.classList.add("mandatory-switch");
     let requiredHtml = `
       <label> Required </label>
       <label class="switch">
         <input type="checkbox">
         <span class="slider"></span>
       </label> 
-     `
+     `;
 
-     propComp4.innerHTML = requiredHtml;
+    propComp4.innerHTML = requiredHtml;
 
-     const mandatoryInput = propComp4.querySelector("input");
-     mandatoryInput.addEventListener("change", () => {
-        selectedComponent.Mandatory = mandatoryInput.checked;
-     })
-    
-     propsContainer.appendChild(propComp4);
+    const mandatoryInput = propComp4.querySelector("input");
+    mandatoryInput.addEventListener("change", () => {
+      selectedComponent.Mandatory = mandatoryInput.checked;
+    });
+
+    propsContainer.appendChild(propComp4);
 
     propsModal.innerHTML = "";
     propsModal.appendChild(propsContainer);
@@ -188,9 +198,7 @@ export function formBuilderClient(
     }
   };
 
-  client.showComponentWizards = function( componentId ) {
-
-  }
+  client.showComponentWizards = function (componentId) {};
 
   return client;
 }
