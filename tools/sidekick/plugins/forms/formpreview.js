@@ -9,7 +9,7 @@ export function preview() {
     var iframe = document.createElement("iframe");
     iframe.classList.add("preview-iframe");
     iframe.src =
-      "http://localhost:3000/tools/sidekick/blocks/form";
+      "/tools/sidekick/blocks/form";
 
     iframe.onload = function () {
       setTimeout(() => {
