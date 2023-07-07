@@ -13,7 +13,7 @@
       "id": "formsInEditor",
       "title": "Forms",
       "environments": ["edit"],
-      "url": "/tools/sidekick/library.html",
+      "url": "/tools/sidekick/library.html?plugin=forms",
       "excludePaths": ["**.docx**"],
       "includePaths": ["**.xls**"]
     },
