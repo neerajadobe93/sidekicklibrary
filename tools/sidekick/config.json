@@ -21,7 +21,7 @@
       "id": "formsOnPage",
       "title": "Forms",
       "event": "forms",
-      "environments": ["preview"],
+      "environments": ["preview, dev"],
       "excludePaths": ["**.xls**"]
     }
   ]

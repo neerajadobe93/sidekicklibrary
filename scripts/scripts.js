@@ -124,11 +124,16 @@ async function loadPage() {
 loadPage();
 
 
-const sidekickFormsEventHandler = (event) => {
+const sidekickFormsEventHandler = async (event) => {
   console.log("here");
-  console.log(event)
-  console.log(event.detail);
-  console.log(event.detail.data);
+  const curPage = window.location.href;
+  const pageData = await fetch(curPage);
+  const tempelement = document.createElement("div");
+  tempelement.innerHTML = pageData;
+
+  const formElement = tempelement.querySelector("div.form");
+  console.log(formElement);
+
 };
 
 const sk = document.querySelector('helix-sidekick');
