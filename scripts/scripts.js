@@ -131,8 +131,17 @@ const sidekickFormsEventHandler = async (event) => {
   const pageData = await res.text();
   const tempelement = document.createElement("div");
   tempelement.innerHTML = pageData;
-
+  const host = window.location.host;
   const formElement = tempelement.querySelector("div.form");
+
+  if (formElement === null) {
+     alert("No Form Found on page")
+  } else {
+      const formJSONrelUrl = formElement.querySelector('a').getAttribute('href');
+      const formJsonURL = `https://${host}${formJSONrelUrl}`;
+      const pluginURL= `https://${host}/tools/sidekick/library.html?plugin=forms&pageURL=https://${curPage}&formjson=${formJsonURL}`
+      window.open(pluginURL, "_blank");
+  }
   console.log(formElement);
 
 };
