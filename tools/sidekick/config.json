@@ -20,9 +20,7 @@
     {
       "id": "formsOnPage",
       "title": "Forms",
-      "event": "forms",
-      "environments": ["preview"],
-      "excludePaths": ["**.docx**"]
+      "event": "forms"
     }
   ]
 }
