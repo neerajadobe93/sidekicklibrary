@@ -13,7 +13,7 @@ import {
   renderFormExcelContainer,
   renderFormPreViewContainer,
   renderScaffolding,
-} from "./formhtmlutils.js";
+} from "./formhtmlutil.js";
 import { formBuilderClient } from "./formbuilderclient.js";
 import { registerContentContainerEvents } from "./formutils.js";
 import { sidecarmenu } from "./sidecar-menu.js";
