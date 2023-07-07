@@ -127,7 +127,8 @@ loadPage();
 const sidekickFormsEventHandler = async (event) => {
   console.log("here");
   const curPage = window.location.href;
-  const pageData = await fetch(curPage);
+  const res = await fetch(curPage);
+  const pageData = await res.text();
   const tempelement = document.createElement("div");
   tempelement.innerHTML = pageData;
 
