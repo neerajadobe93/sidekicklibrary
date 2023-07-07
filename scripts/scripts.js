@@ -127,6 +127,7 @@ loadPage();
 const sidekickFormsEventHandler = async (event) => {
   console.log("here");
   const curPage = window.location.href;
+  const url = new URL(curPage);
   const res = await fetch(curPage);
   const pageData = await res.text();
   const tempelement = document.createElement("div");
@@ -139,7 +140,7 @@ const sidekickFormsEventHandler = async (event) => {
   } else {
       const formJSONrelUrl = formElement.querySelector('a').getAttribute('href');
       const formJsonURL = `https://${host}${formJSONrelUrl}`;
-      const pluginURL= `https://${host}/tools/sidekick/library.html?plugin=forms&pageurl=${encodeURI(curPage)}&formjson=${ encodeURI(formJsonURL)}`;
+      const pluginURL= `https://${host}/tools/sidekick/library.html?plugin=forms&pageurl=${encodeURI(url.pathname)}&formjson=${encodeURI(formJSONrelUrl)}`;
       window.open(pluginURL, "_blank");
   }
   console.log(formElement);
