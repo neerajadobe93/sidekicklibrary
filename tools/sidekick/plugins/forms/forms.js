@@ -14,7 +14,7 @@ import {
   renderFormPreViewContainer,
   renderScaffolding,
 } from "./formhtmlutil.js";
-import { formBuilderClient } from "./formbuilderclient.js";
+import { formBuilderClient } from "./formbuilder.js";
 import { registerContentContainerEvents } from "./formutils.js";
 import { sidecarmenu } from "./sidecar-menu.js";
 import { excelUtils } from "./excelviewutil.js";
