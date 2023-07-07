@@ -140,7 +140,7 @@ const sidekickFormsEventHandler = async (event) => {
   } else {
       const formJSONrelUrl = formElement.querySelector('a').getAttribute('href');
       const formJsonURL = `https://${host}${formJSONrelUrl}`;
-      const pluginURL= `https://${host}/tools/sidekick/library.html?plugin=forms&pageurl=${encodeURI(url.pathname)}&formjson=${encodeURI(formJSONrelUrl)}`;
+      const pluginURL= `https://${host}/tools/sidekick/library.html?plugin=forms&pageurl=${(url.pathname)}&formjson=${(formJSONrelUrl)}`;
       window.open(pluginURL, "_blank");
   }
   console.log(formElement);
