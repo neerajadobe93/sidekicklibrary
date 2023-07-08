@@ -4,27 +4,26 @@ export function preview() {
   client.createForm = async function (data, sitepage = null) {
     const formblock = await import(`/blocks/form/form.js`);
     const myform = await formblock.createForm(data);
-
     console.log(myform);
-    var iframe = document.createElement("iframe");
+  
+    const iframe = document.createElement("iframe");
     iframe.classList.add("preview-iframe");
-    if (sitepage == null) {
-      iframe.src = "/tools/sidekick/blocks/form";
-    } else {
-      iframe.src = sitepage;
-    }
-
-    iframe.onload = function () {
-      setTimeout(() => {
-        var iframeDocument =
-          iframe.contentDocument || iframe.contentWindow.document;
-        const element = iframeDocument.querySelector("form");
-        element.innerHTML = myform.innerHTML;
-        console.log(element);
-      }, 1000);
+    iframe.src = (sitepage == null) ? "/tools/sidekick/blocks/form" : sitepage;
+  
+    const loadFormIntoIframe = () => {
+      const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+      const formElement = iframeDocument.querySelector("form");
+      if (formElement) {
+        formElement.innerHTML = myform.innerHTML;
+        console.log(formElement);
+      } else {
+        setTimeout(loadFormIntoIframe, 100);
+      }
     };
+  
+    iframe.onload = loadFormIntoIframe;  
     return iframe;
   };
-
+  
   return client;
 }

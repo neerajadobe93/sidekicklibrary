@@ -156,7 +156,7 @@ export function formBuilderClient(
 
     const mandatoryInput = propComp4.querySelector("input");
     mandatoryInput.addEventListener("change", () => {
-      selectedComponent.Mandatory = mandatoryInput.checked;
+      selectedComponent.Mandatory = mandatoryInput.checked ? "true": "false";
     });
 
     propsContainer.appendChild(propComp4);

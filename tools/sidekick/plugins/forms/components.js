@@ -7,8 +7,7 @@ export function componentUtils() {
     componentWrapper.classList.add("component-wrapper");
     const compWizard = createComponentWizards();
     const inputComponent = getInputComponent(componentJson);
-    componentWrapper.appendChild(inputComponent);
-    componentWrapper.appendChild(compWizard);
+    componentWrapper.append(inputComponent, compWizard);
     return componentWrapper;
   };
 
@@ -18,25 +17,21 @@ export function componentUtils() {
       Type: "",
       Label: "",
       Placeholder: "",
-      Mandatory: false,
-
+      Mandatory: "false",
     };
 
     switch (type) {
       case "Button":
         componentJson.Type = "button";
-        componentJson.Name = "button";
-        componentJson.Label = "button";
+        componentJson.Label = "Button";
         break;
       case "Textarea":
         componentJson.Type = "textarea";
-        componentJson.Name = "textarea";
-        componentJson.Label = "textarea";
+        componentJson.Label = "Enter your Question here";
         break;
       default:
         componentJson.Type = "text";
-        componentJson.Name = "text";
-        componentJson.Label = "text";
+        componentJson.Label = "Enter your question here";
         break;
     }
     return componentJson;
@@ -87,8 +82,8 @@ export function componentUtils() {
   function createComponentWizards() {
     // Create the container div
     const containerDiv = document.createElement("div");
-    containerDiv.id = "compnent_wizard";
-    containerDiv.classList.add("selectedControls", "bottom", "compnent_wizard");
+    containerDiv.id = "component-wizard";
+    containerDiv.classList.add("selectedControls", "bottom", "component-wizard");
 
     const propertiesButton = document.createElement("button");
     propertiesButton.type = "button";
@@ -122,6 +117,7 @@ export function componentUtils() {
         const textAreaLabel = document.createElement("label");
         textAreaLabel.textContent = componentJson.Label;
         const textAreaInput = document.createElement("input");
+        textAreaInput.type = "textarea";
         textAreaInput.placeholder = componentJson.Placeholder;
         textAreaInput.disabled = true;
         component.appendChild(textAreaLabel);

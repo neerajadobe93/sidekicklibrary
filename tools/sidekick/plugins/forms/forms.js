@@ -26,55 +26,61 @@ function nodeParentWithClass(node, className) {
 }
 
 export async function decorate(container, data, query) {
-  // container.dispatchEvent(new CustomEvent('ShowLoader'));
-  const pageContainer = createTag(
-    "div",
-    { class: "form-library" },
-    renderScaffolding()
-  );
+  const pageContainer = createTag("div", { class: "form-library" }, renderScaffolding());
   container.append(pageContainer);
 
-  const sidecarMenu = sidecarmenu(createTag, pageContainer ,data );
+  const sidecarMenu = sidecarmenu(createTag, pageContainer, data);
   sidecarMenu.addComponents();
 
   const sidecarSearch = pageContainer.querySelector(".sidecarmenu-search sp-search");
-  sidecarSearch.addEventListener("input" , (event) =>{
+  sidecarSearch.addEventListener("input", (event) => {
     sidecarMenu.filterComponents(event.target.value);
-  })
-
-  // content container
+  });
 
   const contentContainer = pageContainer.querySelector(".content");
   contentContainer.innerHTML = renderContentDrawerSplitContainer();
   const canvasContainer = contentContainer.querySelector(".canvas-container");
 
+  const formbuilderContainer = createTag("div", { class: "form-builder" }, renderFormBuilderContainer());
+  const formpreviewContainer = createTag("div", { class: "form-preview" }, renderFormPreViewContainer());
+  const formExcelContainer = createTag("div", { class: "form-excel" }, renderFormExcelContainer());
 
-  const formbuilderContainer = createTag("div", {class: "form-builder"},renderFormBuilderContainer());
-  const formpreviewContainer = createTag("div", {class: "form-preview"},renderFormPreViewContainer());
-  const formExcelContainer = createTag("div", {class: "form-excel"},renderFormExcelContainer());
-
-  canvasContainer.appendChild(formbuilderContainer);
-  canvasContainer.appendChild(formpreviewContainer);
-  canvasContainer.appendChild(formExcelContainer);
+  canvasContainer.append(formbuilderContainer, formpreviewContainer, formExcelContainer);
 
   formpreviewContainer.style.display = "none";
   formExcelContainer.style.display = "none";
-  const compUtils = componentUtils();
 
+  const compUtils = componentUtils();
   const formClient = formBuilderClient(contentContainer, canvasContainer, compUtils);
   const excUtils = excelUtils(container, formClient);
+  const formPreviewClient = preview();
 
-  const formPreviewClient =  preview();
-  registerContentContainerEvents(contentContainer, canvasContainer, formbuilderContainer, formpreviewContainer, formExcelContainer, excUtils, formPreviewClient, formClient);
-  // formClient.updateComponentList();
-
+  registerContentContainerEvents(
+    contentContainer,
+    canvasContainer,
+    formbuilderContainer,
+    formpreviewContainer,
+    formExcelContainer,
+    excUtils,
+    formPreviewClient,
+    formClient
+  );
 
   container?.addEventListener("click", (event) => {
-     console.log(nodeParentWithClass(event.target, "component-wrapper"));
+    const componentWrapper = nodeParentWithClass(event.target, "component-wrapper");
+    const selectedId = componentWrapper?.id;
+    const componentList = canvasContainer.querySelectorAll(".component-wrapper");
+     if ( componentList) {
+      componentList.forEach( comp => {
+         comp.classList.remove("is-selected");
+         if(selectedId && comp.id == selectedId) {
+          comp.classList.add("is-selected");
+         }
+      })
+     }
   });
-
-
 }
+
 
 export default {
   title: "Forms",

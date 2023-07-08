@@ -4,7 +4,7 @@
  */
 export function renderScaffolding() {
   return /* html */ `
-    <sp-split-view primary-size="350" secondary-min="200" dir="ltr" splitter-pos="250" resizable>
+    <sp-split-view primary-size="300" primary-min="300" secondary-min="200" dir="ltr" splitter-pos="250" resizable>
     <div class="sidecarmenu">
       <div class="search sidecarmenu-search">  <sp-search></sp-search>   </div>
       <div class="list-container"> </div>
