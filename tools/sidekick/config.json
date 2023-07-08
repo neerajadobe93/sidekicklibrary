@@ -11,7 +11,7 @@
     },
     {
       "id": "formsInEditor",
-      "title": "Forms",
+      "title": "FORMator",
       "environments": ["edit"],
       "url": "/tools/sidekick/library.html?plugin=forms",
       "excludePaths": ["**.docx**"],
@@ -19,7 +19,7 @@
     },
     {
       "id": "formsOnPage",
-      "title": "Forms",
+      "title": "FORMator",
       "event": "forms",
       "environments": ["preview"]
     }

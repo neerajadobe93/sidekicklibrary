@@ -5,12 +5,15 @@ export function formBuilderClient(
 ) {
   const client = {};
   client.componentListJson = [];
+  client.sitepageurl = null;
   async function initializeComponentList() {
     const urlParams = new URLSearchParams(window.location.search);
 
     // Retrieve the value of the 'name' parameter
     const formjsonURL = urlParams.get("formjson");
     if (formjsonURL !== null) {
+      const pageurl = urlParams.get("pageurl");
+      client.sitepageurl = pageurl;
       const res = await fetch(formjsonURL);
       const resJson = await res.json();
       const formdata = resJson.data;

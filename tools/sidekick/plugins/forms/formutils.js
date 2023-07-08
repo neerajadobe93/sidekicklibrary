@@ -26,9 +26,9 @@ export function registerContentContainerEvents(
     formpreviewContainer.style.display = "block";
     formExcelContainer.style.display = "none";
     const data = formClient.componentListJson;
-
+    
     formpreviewContainer.innerHTML = "";
-    previewclient.createForm(data).then((res) => {
+    previewclient.createForm(data , formClient.sitepageurl).then((res) => {
       formpreviewContainer.appendChild(res);
     });
   });
