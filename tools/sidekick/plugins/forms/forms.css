@@ -326,6 +326,7 @@ formexcel-renderer {
   margin-bottom: 20px;
   color: #000;
   overflow: scroll;
+  height: 70%;
 }
 
 .excel-table {
