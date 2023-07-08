@@ -49,7 +49,7 @@ export function registerContentContainerEvents(
     excelViewContainer.innerHTML = "";
     excelViewContainer.appendChild(table);
 
-    const copyButton = canvasContainer.querySelector(".actions sp-button");
+    const copyButton = canvasContainer.querySelector(".action-container sp-button");
     copyButton.addEventListener("click", () => {
       excelUtils.copyToClipBoard(table);
     });

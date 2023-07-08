@@ -92,18 +92,11 @@ export function renderFormPreViewContainer() {
 }
 
 export function renderFormExcelContainer() {
-  return ` <sp-split-view
-  vertical
-  resizable
-  primary-size="2601"
-  primary-min="1200"
-  secondary-min="200"
-  splitter-pos="1250"
->
+  return ` 
       <div class="excelview-container">
       </div>
-      <div class="actions">
-          <sp-button class="copy-button">Copy</sp-button>
+      <div class="action-container">
+          <sp-button class="copy-button">Copy to Clipboard</sp-button>
       </div>
 </sp-split-view>
 `;
