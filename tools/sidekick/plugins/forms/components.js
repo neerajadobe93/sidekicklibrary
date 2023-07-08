@@ -27,11 +27,11 @@ export function componentUtils() {
         break;
       case "Textarea":
         componentJson.Type = "textarea";
-        componentJson.Label = "Enter your Question here";
+        componentJson.Label = "Your Question";
         break;
       default:
         componentJson.Type = "text";
-        componentJson.Label = "Enter your question here";
+        componentJson.Label = "Your Question";
         break;
     }
     return componentJson;
@@ -109,15 +109,14 @@ export function componentUtils() {
       case "button":
         const buttonInput = document.createElement("input");
         buttonInput.type = "button";
-        buttonInput.value = "button";
+        buttonInput.value = componentJson.Label;
         buttonInput.disabled = true;
         component.appendChild(buttonInput);
         break;
       case "textarea":
         const textAreaLabel = document.createElement("label");
         textAreaLabel.textContent = componentJson.Label;
-        const textAreaInput = document.createElement("input");
-        textAreaInput.type = "textarea";
+        const textAreaInput = document.createElement("textarea");
         textAreaInput.placeholder = componentJson.Placeholder;
         textAreaInput.disabled = true;
         component.appendChild(textAreaLabel);

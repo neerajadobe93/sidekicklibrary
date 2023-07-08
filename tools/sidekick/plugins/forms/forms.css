@@ -178,11 +178,18 @@ formexcel-renderer {
   display: block;
 }
 
-.component-wrapper .input-component input {
-  margin-top: 10px;
+.component-wrapper .input-component input,textarea {
+  margin-top: 20px;
   padding: 10px;
   width: 60%;
   color: white;
+}
+
+.component-wrapper .input-component input[type="button"]{
+  font-size: 1.1rem;
+  width: 65%;
+  border: 1px #393030 solid;
+  background: rgba(var(--spectrum-gray-400-rgb));
 }
 
 .component-wrapper .component-wizard {
