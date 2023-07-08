@@ -557,6 +557,11 @@
     position: relative;
     left: 20px;
   }
+
+  main .form-wrapper {
+    border: 1px black solid;
+    padding: 55px;
+  }
   
   main .form form fieldset[name="titlepanel"] {
     background-color: white;
@@ -586,7 +591,7 @@
     padding: 30px;
   }
   
-  main .form .field-wrapper input[type="text"] {
+  main .form .field-wrapper input[type="text"]  {
     border: 0;
     border-bottom: 0.8px solid #d0bdbd;
     font-weight: 400;
@@ -594,6 +599,20 @@
   }
   
   main .form .field-wrapper input[type="text"]:focus {
+    border: 0;
+    border-bottom: 0.8px solid #d0bdbd;
+    outline: none;
+  }
+
+
+  main .form .field-wrapper input[type="email"]  {
+    border: 0;
+    border-bottom: 0.8px solid #d0bdbd;
+    font-weight: 400;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  main .form .field-wrapper input[type="email"]:focus {
     border: 0;
     border-bottom: 0.8px solid #d0bdbd;
     outline: none;
