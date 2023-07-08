@@ -325,6 +325,8 @@ formexcel-renderer {
   background-color: #fff;
   margin-bottom: 20px;
   color: #000;
+  overflow: scroll;
+  height: 70%;
 }
 
 .excel-table {
@@ -332,6 +334,7 @@ formexcel-renderer {
   border-collapse: collapse;
   border-top: 15px solid #d4d4d4;
   border-left: 15px solid #d4d4d4;
+  
 }
 
 .excel-header-row {
