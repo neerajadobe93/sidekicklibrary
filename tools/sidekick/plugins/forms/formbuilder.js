@@ -17,10 +17,10 @@ export function formBuilderClient(
       const res = await fetch(formjsonURL);
       const resJson = await res.json();
       const formdata = resJson.data;
-      formdata.forEach( formElement => {
+      formdata.forEach((formElement) => {
         client.componentListJson.push(formElement);
-      })
-   
+      });
+
       client.updateComponentList();
     }
   }
@@ -69,109 +69,101 @@ export function formBuilderClient(
 
   client.renderPropsModal = function (componentId) {
     const selectedComponent = client.componentListJson.find(
-      (comp) => comp.Id === componentId
+      (comp) => comp.Id == componentId
     );
+
     const propsContainer = document.createElement("div");
     propsContainer.classList.add("props-container");
 
-    let propCompHeader = document.createElement("h1");
+    // Create and append the header
+    const propCompHeader = document.createElement("h1");
     propCompHeader.textContent = "Properties";
     propsContainer.appendChild(propCompHeader);
-    propsContainer.style.alignContent = "center";
 
-    let divider = document.createElement("sp-divider");
+    // Create and append the divider
+    const divider = document.createElement("sp-divider");
     propsContainer.appendChild(divider);
 
-    let propComp1 = document.createElement("div");
-    // Create the Name input element
+    // Create and append the Name input element
     const nameLabel = document.createElement("label");
-    nameLabel.setAttribute("for", "name-input");
     nameLabel.textContent = "Field Name";
     const nameInput = document.createElement("input");
     nameInput.type = "text";
     nameInput.value = selectedComponent.Label;
-    nameInput.id = "name-input";
-    propComp1.appendChild(nameLabel);
-    propComp1.appendChild(nameInput);
-
-    propsContainer.appendChild(propComp1);
-
     nameInput.addEventListener("change", (event) => {
       if (event.target.value.length === 0) {
         event.target.value = "question";
       }
     });
+    appendElements(propsContainer, nameLabel, nameInput);
 
-    // Create the Type input element
-    let propComp2 = document.createElement("div");
-
-    const placholderLabel = document.createElement("label");
-    placholderLabel.setAttribute("for", "type-input");
-    placholderLabel.textContent = "Placeholder";
-
-    const placholderInput = document.createElement("input");
-    placholderInput.type = "text";
-    placholderInput.id = "type-input";
-    placholderInput.value = selectedComponent.Placeholder;
-    placholderInput.addEventListener("change", (event) => {
+    // Create and append the Placeholder input element
+    const placeholderLabel = document.createElement("label");
+    placeholderLabel.textContent = "Placeholder";
+    const placeholderInput = document.createElement("input");
+    placeholderInput.type = "text";
+    placeholderInput.value = selectedComponent.Placeholder;
+    placeholderInput.addEventListener("change", (event) => {
       selectedComponent.Placeholder = event.target.value;
       client.updateComponentList();
     });
-    propComp2.appendChild(placholderLabel);
-    propComp2.appendChild(placholderInput);
+    appendElements(propsContainer, placeholderLabel, placeholderInput);
 
-    propsContainer.appendChild(propComp2);
-
-    // Create the Label input element
-    let propComp3 = document.createElement("div");
+    // Create and append the Label input element
     const labelLabel = document.createElement("label");
-    labelLabel.setAttribute("for", "label-input");
     labelLabel.textContent = "Label:";
-
     const labelInput = document.createElement("input");
     labelInput.type = "text";
-    labelInput.id = "label-input";
     labelInput.value = selectedComponent.Label;
     labelInput.addEventListener("change", (event) => {
       selectedComponent.Label = event.target.value;
       client.updateComponentList();
     });
+    appendElements(propsContainer, labelLabel, labelInput);
 
-    propComp3.appendChild(labelLabel);
-    propComp3.appendChild(labelInput);
-    propsContainer.appendChild(propComp3);
-
-    // Create the Label input element
-    let propComp4 = document.createElement("div");
-    propComp4.classList.add("mandatory-switch");
-    let requiredHtml = `
-      <label> Required </label>
-      <label class="switch">
-        <input type="checkbox">
-        <span class="slider"></span>
-      </label> 
-     `;
-
-    propComp4.innerHTML = requiredHtml;
-
-    const mandatoryInput = propComp4.querySelector("input");
-    mandatoryInput.addEventListener("change", () => {
-      selectedComponent.Mandatory = mandatoryInput.checked ? "true": "false";
+    // Create and append the Mandatory switch
+    const mandatoryLabel = document.createElement("label");
+    mandatoryLabel.textContent = "Required";
+    const mandatorySwitch = createSwitchInput();
+    mandatorySwitch.addEventListener("change", () => {
+      selectedComponent.Mandatory = mandatorySwitch.checked ? "true" : "false";
     });
+    appendElements(propsContainer, mandatoryLabel, mandatorySwitch);
 
-    propsContainer.appendChild(propComp4);
-
+    // Clear and append the propsContainer to the propsModal
     propsModal.innerHTML = "";
     propsModal.appendChild(propsContainer);
   };
 
-  client.updateComponentList = function (showAnimation = false) {
-    dropzone.innerHTML = "";
-    let compId = 1;
-    const len = client.componentListJson.length;
+  // Helper function to append multiple elements to a container
+  function appendElements(container, ...elements) {
+    elements.forEach((element) => container.appendChild(element));
+  }
 
-    client.componentListJson.forEach((componentJson) => {
-      componentJson["Id"] = compId++;
+  // Helper function to create a switch input element
+  function createSwitchInput() {
+    const switchLabel = document.createElement("label");
+    switchLabel.classList.add("switch");
+    const switchInput = document.createElement("input");
+    switchInput.type = "checkbox";
+    const slider = document.createElement("span");
+    slider.classList.add("slider");
+    appendElements(switchLabel, switchInput, slider);
+    return switchLabel;
+  }
+
+  client.updateComponentList = function (showAnimation = false) {
+    dropzone.textContent = ""; // Clear the dropzone element
+
+    client.componentListJson.forEach((componentJson, index) => {
+      const compId = index + 1;
+
+      const { Name, Id } = componentJson;
+
+      componentJson.Id = compId;
+      componentJson.Name =
+        Name == null || Name == undefined ? "Question" + Id : Name;
+
       const listItem = document.createElement("li");
       const component = client.componentUtils.createComponent(componentJson);
       client.componentUtils.registerEvents(
@@ -182,7 +174,7 @@ export function formBuilderClient(
         canvasContainer
       );
 
-      if (showAnimation && len == compId - 1) {
+      if (showAnimation && index === client.componentListJson.length - 1) {
         component.classList.add("zoomout");
         listItem.appendChild(component);
         dropzone.appendChild(listItem);
@@ -194,11 +186,8 @@ export function formBuilderClient(
         dropzone.appendChild(listItem);
       }
     });
-    if (!dropzone.hasChildNodes()) {
-      dropzone.classList.add("empty");
-    } else {
-      dropzone.classList.remove("empty");
-    }
+
+    dropzone.classList.toggle("empty", !dropzone.hasChildNodes());
   };
 
   client.showComponentWizards = function (componentId) {};

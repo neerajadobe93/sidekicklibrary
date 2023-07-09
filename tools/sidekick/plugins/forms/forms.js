@@ -20,19 +20,24 @@ import { sidecarmenu } from "./sidecar-menu.js";
 import { excelUtils } from "./excelviewutil.js";
 import { preview } from "./formpreview.js";
 
-
 function nodeParentWithClass(node, className) {
-  return node.closest('.' + className);
+  return node.closest("." + className);
 }
 
 export async function decorate(container, data, query) {
-  const pageContainer = createTag("div", { class: "form-library" }, renderScaffolding());
+  const pageContainer = createTag(
+    "div",
+    { class: "form-library" },
+    renderScaffolding()
+  );
   container.append(pageContainer);
 
   const sidecarMenu = sidecarmenu(createTag, pageContainer, data);
   sidecarMenu.addComponents();
 
-  const sidecarSearch = pageContainer.querySelector(".sidecarmenu-search sp-search");
+  const sidecarSearch = pageContainer.querySelector(
+    ".sidecarmenu-search sp-search"
+  );
   sidecarSearch.addEventListener("input", (event) => {
     sidecarMenu.filterComponents(event.target.value);
   });
@@ -41,17 +46,37 @@ export async function decorate(container, data, query) {
   contentContainer.innerHTML = renderContentDrawerSplitContainer();
   const canvasContainer = contentContainer.querySelector(".canvas-container");
 
-  const formbuilderContainer = createTag("div", { class: "form-builder" }, renderFormBuilderContainer());
-  const formpreviewContainer = createTag("div", { class: "form-preview" }, renderFormPreViewContainer());
-  const formExcelContainer = createTag("div", { class: "form-excel" }, renderFormExcelContainer());
+  const formbuilderContainer = createTag(
+    "div",
+    { class: "form-builder" },
+    renderFormBuilderContainer()
+  );
+  const formpreviewContainer = createTag(
+    "div",
+    { class: "form-preview" },
+    renderFormPreViewContainer()
+  );
+  const formExcelContainer = createTag(
+    "div",
+    { class: "form-excel" },
+    renderFormExcelContainer()
+  );
 
-  canvasContainer.append(formbuilderContainer, formpreviewContainer, formExcelContainer);
+  canvasContainer.append(
+    formbuilderContainer,
+    formpreviewContainer,
+    formExcelContainer
+  );
 
   formpreviewContainer.style.display = "none";
   formExcelContainer.style.display = "none";
 
   const compUtils = componentUtils();
-  const formClient = formBuilderClient(contentContainer, canvasContainer, compUtils);
+  const formClient = formBuilderClient(
+    contentContainer,
+    canvasContainer,
+    compUtils
+  );
   const excUtils = excelUtils(container, formClient);
   const formPreviewClient = preview();
 
@@ -67,20 +92,26 @@ export async function decorate(container, data, query) {
   );
 
   container?.addEventListener("click", (event) => {
-    const componentWrapper = nodeParentWithClass(event.target, "component-wrapper");
+    const componentWrapper = nodeParentWithClass(
+      event.target,
+      "component-wrapper"
+    );
     const selectedId = componentWrapper?.id;
-    const componentList = canvasContainer.querySelectorAll(".component-wrapper");
-     if ( componentList) {
-      componentList.forEach( comp => {
-         comp.classList.remove("is-selected");
-         if(selectedId && comp.id == selectedId) {
-          comp.classList.add("is-selected");
-         }
-      })
-     }
+    if (selectedId) {
+      const componentList =
+        canvasContainer.querySelectorAll(".component-wrapper");
+      if (componentList) {
+        componentList.forEach((comp) => {
+          comp.classList.remove("is-selected");
+          if (comp.id == selectedId) {
+            comp.classList.add("is-selected");
+          }
+        });
+      }
+      formClient.renderPropsModal(selectedId);
+    }
   });
 }
-
 
 export default {
   title: "Forms",
