@@ -33,7 +33,7 @@ export function formBuilderClient(
 
   client.addComponent = function (componentJson) {
     client.componentListJson.push(componentJson);
-    client.updateComponentList();
+    client.updateComponentList(true);
   };
 
   client.removeComponent = function (componentJson) {
@@ -64,7 +64,6 @@ export function formBuilderClient(
     const componentType = event.dataTransfer.getData("text");
     const componentJson = componentUtils.getComponentJson(componentType);
     client.addComponent(componentJson);
-    client.updateComponentList(true);
   });
 
   client.renderPropsModal = function (componentId) {
@@ -126,7 +125,8 @@ export function formBuilderClient(
     mandatoryLabel.textContent = "Required";
     const mandatorySwitch = createSwitchInput();
     mandatorySwitch.addEventListener("change", () => {
-      selectedComponent.Mandatory = mandatorySwitch.checked ? "true" : "false";
+      const checkbox = mandatorySwitch.querySelector("input[type='checkbox']");
+      selectedComponent.Mandatory = checkbox.checked ? "true" : "false";
     });
     appendElements(propsContainer, mandatoryLabel, mandatorySwitch);
 
@@ -162,7 +162,7 @@ export function formBuilderClient(
 
       componentJson.Id = compId;
       componentJson.Name =
-        Name == null || Name == undefined ? "Question" + Id : Name;
+       ( Name == null || Name == undefined || Name == "") ? "Question-" + compId : Name;
 
       const listItem = document.createElement("li");
       const component = client.componentUtils.createComponent(componentJson);

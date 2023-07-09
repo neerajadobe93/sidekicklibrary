@@ -27,11 +27,13 @@ export function componentUtils() {
         break;
       case "Textarea":
         componentJson.Type = "textarea";
-        componentJson.Label = "Your Question";
+        componentJson.Label = "Question";
+        componentJson.Placeholder = "Enter your text here"
         break;
       default:
         componentJson.Type = "text";
-        componentJson.Label = "Your Question";
+        componentJson.Label = "Question";
+        componentJson.Placeholder = "Enter your text here"
         break;
     }
     return componentJson;
