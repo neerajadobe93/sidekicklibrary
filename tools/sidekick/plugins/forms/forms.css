@@ -39,9 +39,10 @@ sp-split-view {
 }
 
 .sidecarmenu sp-sidenav-item {
-  border-top: 1px solid #4a5361;
-  border-bottom: 1px solid #4a5361;
-  margin-top: 10px;
+  /* border: 1px solid #4a5361; */
+
+  margin: 10px;
+  box-shadow: 0 4px 4px 0 #1f1e1e;
 }
 
 .details-container {
