@@ -126,8 +126,8 @@ sp-split-view {
 
 .formbuilder-list.drag-over {
   border: 2px dashed white;
-  background-color: white;
-  opacity: 0.2;
+  background-color: black;
+  opacity: 0.1;
 }
 
 .formbuilder-list.empty::before {
@@ -185,11 +185,27 @@ formexcel-renderer {
   color: white;
 }
 
-.component-wrapper .input-component input[type="button"]{
+.component-wrapper .input-component input[type="button"] {
   font-size: 1.1rem;
   width: 65%;
   border: 1px #393030 solid;
   background: rgba(var(--spectrum-gray-400-rgb));
+}
+
+
+.component-wrapper .input-component  button{
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  padding: 0 25px;
+  background-color: #fff;
+  border-radius: 0.25rem;
+
+  color: black;
+  font-size: 13px;
+  line-height: 40px;
+  font-weight: 400;
+  text-align: center;
 }
 
 .component-wrapper .component-wizard {

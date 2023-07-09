@@ -6,6 +6,13 @@ export function formBuilderClient(
   const client = {};
   client.componentListJson = [];
   client.sitepageurl = null;
+  client.submitJson = {
+    Name: "submit",
+    Type: "submit",
+    Label: "Submit",
+    Placeholder: "",
+    Mandatory: "",
+  };
   async function initializeComponentList() {
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -32,7 +39,13 @@ export function formBuilderClient(
   const propsModal = contentContainer.querySelector(".propsmodal");
 
   client.addComponent = function (componentJson) {
-    client.componentListJson.push(componentJson);
+    if (client.componentListJson.length == 0) {
+      client.componentListJson.push(componentJson);
+      client.componentListJson.push(client.submitJson);
+    } else {
+      const insertIndex = client.componentListJson.length - 1;
+      client.componentListJson.splice(insertIndex, 0, componentJson);
+    }
     client.updateComponentList(true);
   };
 
@@ -40,6 +53,9 @@ export function formBuilderClient(
     client.componentListJson = client.componentListJson.filter(
       (component) => component.Id !== componentJson.Id
     );
+    if (client.componentListJson.length == 1) {
+      client.componentListJson = [];
+    }
     client.updateComponentList();
   };
 
@@ -55,7 +71,7 @@ export function formBuilderClient(
 
   dropzone.addEventListener("dragover", (event) => {
     event.preventDefault();
-    // dropzone.classList.remove("drag-over");
+    dropzone.classList.add("drag-over");
   });
 
   dropzone.addEventListener("drop", (event) => {
@@ -88,11 +104,12 @@ export function formBuilderClient(
     nameLabel.textContent = "Field Name";
     const nameInput = document.createElement("input");
     nameInput.type = "text";
-    nameInput.value = selectedComponent.Label;
+    nameInput.value = selectedComponent.Name;
     nameInput.addEventListener("change", (event) => {
       if (event.target.value.length === 0) {
         event.target.value = "question";
       }
+      selectedComponent.Name = event.target.value;
     });
     appendElements(propsContainer, nameLabel, nameInput);
 
@@ -162,17 +179,21 @@ export function formBuilderClient(
 
       componentJson.Id = compId;
       componentJson.Name =
-       ( Name == null || Name == undefined || Name == "") ? "Question-" + compId : Name;
+        Name == null || Name == undefined || Name == ""
+          ? "Question-" + compId
+          : Name;
 
       const listItem = document.createElement("li");
       const component = client.componentUtils.createComponent(componentJson);
-      client.componentUtils.registerEvents(
-        component,
-        propsModal,
-        client,
-        componentJson,
-        canvasContainer
-      );
+      if (componentJson.Name !== "submit") {
+        client.componentUtils.registerEvents(
+          component,
+          propsModal,
+          client,
+          componentJson,
+          canvasContainer
+        );
+      }
 
       if (showAnimation && index === client.componentListJson.length - 1) {
         component.classList.add("zoomout");

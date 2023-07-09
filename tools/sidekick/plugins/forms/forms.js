@@ -97,7 +97,7 @@ export async function decorate(container, data, query) {
       "component-wrapper"
     );
     const selectedId = componentWrapper?.id;
-    if (selectedId) {
+    if (selectedId && selectedId != formClient.componentListJson.length) {
       const componentList =
         canvasContainer.querySelectorAll(".component-wrapper");
       if (componentList) {

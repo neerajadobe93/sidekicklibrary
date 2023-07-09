@@ -115,6 +115,15 @@ export function componentUtils() {
         buttonInput.disabled = true;
         component.appendChild(buttonInput);
         break;
+      case "submit":
+        const submitBtn = document.createElement("button");
+        submitBtn.type = "submit";
+        submitBtn.value = componentJson.Label;
+        submitBtn.name = componentJson.Label;
+        submitBtn.textContent = componentJson.Label;
+        submitBtn.disabled = true;
+        component.appendChild(submitBtn);
+        break;
       case "textarea":
         const textAreaLabel = document.createElement("label");
         textAreaLabel.textContent = componentJson.Label;
