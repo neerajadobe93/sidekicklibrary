@@ -12,6 +12,17 @@ export function preview() {
   
     const loadFormIntoIframe = () => {
       const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+      const iframeHeader = iframeDocument.querySelector("header");
+      const iframeFooter = iframeDocument.querySelector("footer");
+
+      if( iframeHeader ) {
+         iframeHeader.style.display = "none";
+      }
+
+      if( iframeFooter ) {
+        iframeFooter.style.display = "none";
+     }
+
       const formElement = iframeDocument.querySelector("form");
       if (formElement) {
         formElement.innerHTML = myform.innerHTML;
