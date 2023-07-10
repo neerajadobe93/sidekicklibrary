@@ -235,3 +235,16 @@ main .section[data-section-status='initialized'] {
 main .section.highlight {
   background-color: var(--highlight-background-color);
 }
+
+
+
+
+.submit-form-section {
+  float: left;
+  width: 35%;
+  margin-left: 268px;
+}
+
+.myform-container {
+  margin-left: 900px !important;
+}
