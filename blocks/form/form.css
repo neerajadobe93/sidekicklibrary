@@ -561,6 +561,7 @@
   main .form-wrapper {
     
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-top: 15px solid #124b71;
     padding: 55px;
   }
   
