@@ -140,7 +140,7 @@ export function formBuilderClient(
     // Create and append the Mandatory switch
     const mandatoryLabel = document.createElement("label");
     mandatoryLabel.textContent = "Required";
-    const mandatorySwitch = createSwitchInput();
+    const mandatorySwitch = createSwitchInput(selectedComponent);
     mandatorySwitch.addEventListener("change", () => {
       const checkbox = mandatorySwitch.querySelector("input[type='checkbox']");
       selectedComponent.Mandatory = checkbox.checked ? "true" : "false";
@@ -158,11 +158,12 @@ export function formBuilderClient(
   }
 
   // Helper function to create a switch input element
-  function createSwitchInput() {
+  function createSwitchInput(selectedComponent) {
     const switchLabel = document.createElement("label");
     switchLabel.classList.add("switch");
     const switchInput = document.createElement("input");
     switchInput.type = "checkbox";
+    switchInput.checked = selectedComponent.Mandatory == "true";
     const slider = document.createElement("span");
     slider.classList.add("slider");
     appendElements(switchLabel, switchInput, slider);
