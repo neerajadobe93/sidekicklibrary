@@ -90,6 +90,17 @@ export function formBuilderClient(
     const propsContainer = document.createElement("div");
     propsContainer.classList.add("props-container");
 
+    const removeButton = document.createElement("button");
+    removeButton.classList.add("close-props-container");
+    removeButton.innerHTML = "&#10005;"; // Cross sign
+    propsContainer.appendChild(removeButton);
+
+    removeButton.addEventListener("click" , ()=> {
+      propsModal.classList.remove("open");
+      client.componentUtils.closePropsContainer(canvasContainer);
+
+    })
+     
     // Create and append the header
     const propCompHeader = document.createElement("h1");
     propCompHeader.textContent = "Properties";

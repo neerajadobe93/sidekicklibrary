@@ -50,28 +50,10 @@ export function componentUtils() {
     propertiesButton.addEventListener("click", () => {
       client.renderPropsModal(componentJson.Id);
       propsModal.classList.toggle("open");
-      const canvasSplitter = canvasContainer.querySelector(".form-builder sp-split-view");
       if (propsModal.classList.contains("open")) {
-        let pos = 1500;
-        const decreasePos = () => {
-          canvasSplitter.setAttribute("splitter-pos", pos);
-          pos -= 50;
-          if (pos > 1100) {
-            setTimeout(decreasePos, 80);
-          }
-        };
-      
-        decreasePos();
+        componentUtils.openPropsContainer(canvasContainer);
       } else {
-        let pos = parseInt(canvasSplitter.getAttribute("splitter-pos"));
-        const increasePos = () => {
-          canvasSplitter.setAttribute("splitter-pos", pos);
-          pos += 50;
-          if (pos <= 1500) {
-            setTimeout(increasePos, 80);
-          }
-        };
-        increasePos();
+        componentUtils.closePropsContainer(canvasContainer);
       }
     });
 
@@ -80,6 +62,36 @@ export function componentUtils() {
       client.removeComponent(componentJson);
     });
   };
+
+
+  componentUtils.openPropsContainer = function(canvasContainer) {
+    const canvasSplitter = canvasContainer.querySelector(".form-builder sp-split-view");
+    let pos = 1500;
+    const decreasePos = () => {
+      canvasSplitter.setAttribute("splitter-pos", pos);
+      pos -= 50;
+      if (pos > 1100) {
+        setTimeout(decreasePos, 80);
+      }
+    };
+    decreasePos();    
+  }
+
+  componentUtils.closePropsContainer = function(canvasContainer) {
+    const canvasSplitter = canvasContainer.querySelector(".form-builder sp-split-view");
+    let pos = parseInt(canvasSplitter.getAttribute("splitter-pos"));
+    const increasePos = () => {
+      canvasSplitter.setAttribute("splitter-pos", pos);
+      pos += 50;
+      if (pos <= 1500) {
+        setTimeout(increasePos, 80);
+      }
+    };
+    increasePos();
+  }
+
+  
+
 
   function createComponentWizards() {
     // Create the container div
