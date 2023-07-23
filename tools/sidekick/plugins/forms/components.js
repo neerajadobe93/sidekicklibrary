@@ -4,7 +4,9 @@ export function componentUtils() {
   componentUtils.createComponent = function (componentJson) {
     const componentWrapper = document.createElement("div");
     componentWrapper.id = componentJson.Id;
+    componentWrapper.draggable = true;
     componentWrapper.classList.add("component-wrapper");
+    componentWrapper.classList.add("form-component");
     const compWizard = createComponentWizards();
     const inputComponent = getInputComponent(componentJson);
     componentWrapper.append(inputComponent, compWizard);
@@ -28,12 +30,12 @@ export function componentUtils() {
       case "Textarea":
         componentJson.Type = "textarea";
         componentJson.Label = "Question";
-        componentJson.Placeholder = "Enter your text here"
+        componentJson.Placeholder = "Enter your text here";
         break;
       default:
         componentJson.Type = "text";
         componentJson.Label = "Question";
-        componentJson.Placeholder = "Enter your text here"
+        componentJson.Placeholder = "Enter your text here";
         break;
     }
     return componentJson;
@@ -63,9 +65,10 @@ export function componentUtils() {
     });
   };
 
-
-  componentUtils.openPropsContainer = function(canvasContainer) {
-    const canvasSplitter = canvasContainer.querySelector(".form-builder sp-split-view");
+  componentUtils.openPropsContainer = function (canvasContainer) {
+    const canvasSplitter = canvasContainer.querySelector(
+      ".form-builder sp-split-view"
+    );
     let pos = 1500;
     const decreasePos = () => {
       canvasSplitter.setAttribute("splitter-pos", pos);
@@ -74,11 +77,13 @@ export function componentUtils() {
         setTimeout(decreasePos, 80);
       }
     };
-    decreasePos();    
-  }
+    decreasePos();
+  };
 
-  componentUtils.closePropsContainer = function(canvasContainer) {
-    const canvasSplitter = canvasContainer.querySelector(".form-builder sp-split-view");
+  componentUtils.closePropsContainer = function (canvasContainer) {
+    const canvasSplitter = canvasContainer.querySelector(
+      ".form-builder sp-split-view"
+    );
     let pos = parseInt(canvasSplitter.getAttribute("splitter-pos"));
     const increasePos = () => {
       canvasSplitter.setAttribute("splitter-pos", pos);
@@ -88,16 +93,18 @@ export function componentUtils() {
       }
     };
     increasePos();
-  }
-
-  
-
+  };
 
   function createComponentWizards() {
     // Create the container div
     const containerDiv = document.createElement("div");
+    containerDiv.draggable = true;
     containerDiv.id = "component-wizard";
-    containerDiv.classList.add("selectedControls", "bottom", "component-wizard");
+    containerDiv.classList.add(
+      "selectedControls",
+      "bottom",
+      "component-wizard"
+    );
 
     const propertiesButton = document.createElement("button");
     propertiesButton.type = "button";
@@ -108,7 +115,7 @@ export function componentUtils() {
     // Create the remove button
     const removeButton = document.createElement("button");
     removeButton.type = "button";
-    removeButton.classList.add("sc-Remove", "btn","delete-button");
+    removeButton.classList.add("sc-Remove", "btn", "delete-button");
     removeButton.setAttribute("aria-label", "Remove");
     removeButton.innerHTML = "&#10005;"; // Cross sign
     containerDiv.appendChild(removeButton);

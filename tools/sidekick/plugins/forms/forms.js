@@ -16,13 +16,14 @@ import {
 } from "./formhtmlutil.js";
 import { formBuilderClient } from "./formbuilder.js";
 import { registerContentContainerEvents } from "./formutils.js";
-import { sidecarmenu } from "./sidecar-menu.js";
+import { createSideMenu } from "./side-menu.js";
 import { excelUtils } from "./excelviewutil.js";
 import { preview } from "./formpreview.js";
 
 function nodeParentWithClass(node, className) {
   return node.closest("." + className);
 }
+
 
 export async function decorate(container, data, query) {
   const pageContainer = createTag(
@@ -32,7 +33,10 @@ export async function decorate(container, data, query) {
   );
   container.append(pageContainer);
 
-  const sidecarMenu = sidecarmenu(createTag, pageContainer, data);
+  const listContainer = pageContainer.querySelector(
+    ".sidecarmenu .list-container"
+  );
+  const sidecarMenu = createSideMenu(createTag, listContainer, data);
   sidecarMenu.addComponents();
 
   const sidecarSearch = pageContainer.querySelector(
