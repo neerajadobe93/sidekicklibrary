@@ -267,7 +267,7 @@ function constructPayload(form) {
     return jsonData;
   }
   
-  export async function createForm(data) {
+  async function createForm(data) {
     const form = document.createElement("form");
     form.noValidate = true;
     data.forEach((fd) => {
