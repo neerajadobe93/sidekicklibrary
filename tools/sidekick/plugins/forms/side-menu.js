@@ -1,67 +1,53 @@
+import { createTag } from "./dom.js";
 
-// write function comments here
-
-/**
- * @param {function} createTag - function to create a tag
- * @param {HTMLElement} listContainer - list container
- * @param {Object} componentSheetData - component sheet data
- * @returns {Object} sidecar
- * @returns {function} sidecar.addComponents - add components
- * @returns {function} sidecar.filterComponents - filter components
- * @returns {HTMLElement} sidecar.data - sidecar data
-**/
-
-export function createSideMenu(createTag, listContainer, componentSheetData) {
+export async function createSideMenu(pageContainer, componentSheetData) {
   const sidecar = {};
   const sideNav = createTag("sp-sidenav", {
     variant: "multilevel",
     "data-testid": "components",
   });
-  listContainer.appendChild(sideNav);
 
-  const data = componentSheetData;
+  const sidecarSearch = pageContainer.querySelector(".sidecarmenu-search sp-search");
+  const listContainer = pageContainer.querySelector(".sidecarmenu .list-container");
 
-  const createSideNavItem = (component) => {
+  // Cache the created side navigation items for future filtering
+  const sideNavItems = componentSheetData.map((component) => {
     const { Element } = component;
-    const componentIcon = createTag("sp-icon-file-template", {
-      slot: "icon",
-      size: "s",
-    });
-    const sidenavitem = createTag(
-      "sp-sidenav-item",
-      {
-        label: Element,
-        draggable: true,
-      },
-      [componentIcon]
-    );
+    const componentIcon = createTag("sp-icon-file-template", { slot: "icon", size: "s" });
+    const sidenavitem = createTag("sp-sidenav-item", {
+      label: Element,
+      draggable: true,
+    }, [componentIcon]);
 
     sidenavitem.addEventListener("dragstart", (event) => {
       event.dataTransfer.setData("text", Element);
     });
 
     return sidenavitem;
-  };
+  });
+
+  // Add all the side navigation items to the side navigation container
+  sideNavItems.forEach((item) => sideNav.appendChild(item));
 
   sidecar.addComponents = function () {
-    sideNav.innerHTML = "";
-    data.forEach((component) => {
-      sideNav.appendChild(createSideNavItem(component));
-    });
+    listContainer.appendChild(sideNav);
   };
 
   sidecar.filterComponents = function (filterQuery) {
     filterQuery = filterQuery.toLowerCase();
-    sideNav.innerHTML = "";
 
-    const filteredComponents = data.filter(
-      (component) => filterQuery === "" || component.Element.toLowerCase().includes(filterQuery)
-    );
-
-    filteredComponents.forEach((component) => {
-      sideNav.appendChild(createSideNavItem(component));
+    sideNavItems.forEach((item) => {
+      const itemText = item.getAttribute("Label").toLowerCase();
+      item.style.display = itemText.includes(filterQuery) ? "block" : "none";
     });
   };
+
+  // Attach the event listener for the search input using event delegation
+  sidecarSearch.addEventListener("input", (event) => {
+    sidecar.filterComponents(event.target.value);
+  });
+
+  sidecar.addComponents();
 
   return sidecar;
 }

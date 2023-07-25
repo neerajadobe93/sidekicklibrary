@@ -1,19 +1,18 @@
-export function componentUtils() {
-  const componentUtils = {};
+import { createFormElement } from "./FormCreator.js";
 
-  componentUtils.createComponent = function (componentJson) {
+export const createComponent =  (componentJson) => {
     const componentWrapper = document.createElement("div");
     componentWrapper.id = componentJson.Id;
     componentWrapper.draggable = true;
     componentWrapper.classList.add("component-wrapper");
     componentWrapper.classList.add("form-component");
     const compWizard = createComponentWizards();
-    const inputComponent = getInputComponent(componentJson);
+    const inputComponent = createFormElement(componentJson);
     componentWrapper.append(inputComponent, compWizard);
     return componentWrapper;
   };
 
-  componentUtils.getComponentJson = function (type) {
+export const getComponentJson = function (type) {
     let componentJson = {
       Name: "",
       Type: "",
@@ -32,6 +31,16 @@ export function componentUtils() {
         componentJson.Label = "Question";
         componentJson.Placeholder = "Enter your text here";
         break;
+      case "Fieldset":
+        componentJson.Type = "fieldset";
+        componentJson.Label = "Question";
+        componentJson.Placeholder = "Enter your text here";
+        break;
+      case "Radio":
+        componentJson.Type = "radio";
+        componentJson.Label = "Question";
+        componentJson.Placeholder = "Enter your text here";
+        break;
       default:
         componentJson.Type = "text";
         componentJson.Label = "Question";
@@ -41,7 +50,7 @@ export function componentUtils() {
     return componentJson;
   };
 
-  componentUtils.registerEvents = function (
+  export const registerEvents = function (
     component,
     propsModal,
     client,
@@ -53,9 +62,9 @@ export function componentUtils() {
       client.renderPropsModal(componentJson.Id);
       propsModal.classList.toggle("open");
       if (propsModal.classList.contains("open")) {
-        componentUtils.openPropsContainer(canvasContainer);
+        openPropsContainer(canvasContainer);
       } else {
-        componentUtils.closePropsContainer(canvasContainer);
+        closePropsContainer(canvasContainer);
       }
     });
 
@@ -65,7 +74,7 @@ export function componentUtils() {
     });
   };
 
-  componentUtils.openPropsContainer = function (canvasContainer) {
+  export const openPropsContainer = function (canvasContainer) {
     const canvasSplitter = canvasContainer.querySelector(
       ".form-builder sp-split-view"
     );
@@ -80,7 +89,7 @@ export function componentUtils() {
     decreasePos();
   };
 
-  componentUtils.closePropsContainer = function (canvasContainer) {
+  export const closePropsContainer = function (canvasContainer) {
     const canvasSplitter = canvasContainer.querySelector(
       ".form-builder sp-split-view"
     );
@@ -95,7 +104,7 @@ export function componentUtils() {
     increasePos();
   };
 
-  function createComponentWizards() {
+  export const  createComponentWizards = () => {
     // Create the container div
     const containerDiv = document.createElement("div");
     containerDiv.draggable = true;
@@ -123,48 +132,51 @@ export function componentUtils() {
     return containerDiv;
   }
 
-  function getInputComponent(componentJson) {
-    let component = document.createElement("div");
-    component.classList.add("input-component");
-    switch (componentJson.Type) {
-      case "button":
-        const buttonInput = document.createElement("input");
-        buttonInput.type = "button";
-        buttonInput.value = componentJson.Label;
-        buttonInput.disabled = true;
-        component.appendChild(buttonInput);
-        break;
-      case "submit":
-        const submitBtn = document.createElement("button");
-        submitBtn.type = "submit";
-        submitBtn.value = componentJson.Label;
-        submitBtn.name = componentJson.Label;
-        submitBtn.textContent = componentJson.Label;
-        submitBtn.disabled = true;
-        component.appendChild(submitBtn);
-        break;
-      case "textarea":
-        const textAreaLabel = document.createElement("label");
-        textAreaLabel.textContent = componentJson.Label;
-        const textAreaInput = document.createElement("textarea");
-        textAreaInput.placeholder = componentJson.Placeholder;
-        textAreaInput.disabled = true;
-        component.appendChild(textAreaLabel);
-        component.appendChild(textAreaInput);
-        break;
-      default:
-        const textInputLabel = document.createElement("label");
-        textInputLabel.textContent = componentJson.Label;
-        const textInput = document.createElement("input");
-        textInput.placeholder = componentJson.Placeholder;
-        textInput.disabled = true;
-        component.appendChild(textInputLabel);
-        component.appendChild(textInput);
-        break;
-    }
+  // // function getInputComponent(componentJson) {
+  // //   let component = document.createElement("div");
+  // //   component.classList.add("input-component");
+  // //   switch (componentJson.Type) {
+  // //     case "button":
+  // //       const buttonInput = document.createElement("input");
+  // //       buttonInput.type = "button";
+  // //       buttonInput.value = componentJson.Label;
+  // //       buttonInput.disabled = true;
+  // //       component.appendChild(buttonInput);
+  // //       break;
+  // //     case "submit":
+  // //       const submitBtn = document.createElement("button");
+  // //       submitBtn.type = "submit";
+  // //       submitBtn.value = componentJson.Label;
+  // //       submitBtn.name = componentJson.Label;
+  // //       submitBtn.textContent = componentJson.Label;
+  // //       submitBtn.disabled = true;
+  // //       component.appendChild(submitBtn);
+  // //       break;
+  // //     case "textarea":
+  // //       const textAreaLabel = document.createElement("label");
+  // //       textAreaLabel.textContent = componentJson.Label;
+  // //       const textAreaInput = document.createElement("textarea");
+  // //       textAreaInput.placeholder = componentJson.Placeholder;
+  // //       textAreaInput.disabled = true;
+  // //       component.appendChild(textAreaLabel);
+  // //       component.appendChild(textAreaInput);
+  // //       break;
+  // //     case "fieldset":
+  // //       const fieldsetContainer = document.createElement("fieldset");
+  // //       fieldsetContainer.classList.add("fieldset-container");
+  // //       fieldsetContainer.style.height = "100px";       
+  // //       component.appendChild(fieldsetContainer);
+  // //       break;
+  // //     default:
+  // //       const textInputLabel = document.createElement("label");
+  // //       textInputLabel.textContent = componentJson.Label;
+  // //       const textInput = document.createElement("input");
+  // //       textInput.placeholder = componentJson.Placeholder;
+  // //       textInput.disabled = true;
+  // //       component.appendChild(textInputLabel);
+  // //       component.appendChild(textInput);
+  // //       break;
+  // //   }
 
-    return component;
-  }
-
-  return componentUtils;
-}
+  //   return component;
+  // }

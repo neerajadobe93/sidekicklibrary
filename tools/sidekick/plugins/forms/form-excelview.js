@@ -1,4 +1,4 @@
-export function excelUtils(container, formclient) {
+export function excelview(container, formclient) {
   const utils = {};
   utils.container = container;
   utils.formclient = formclient;

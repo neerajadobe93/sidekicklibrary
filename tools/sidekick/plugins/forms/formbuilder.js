@@ -1,7 +1,8 @@
+import { closePropsContainer, createComponent, getComponentJson, registerEvents } from "./components.js";
+
 export function formBuilderClient(
   contentContainer,
-  canvasContainer,
-  componentUtils
+  canvasContainer
 ) {
   const client = {};
   client.componentListJson = [];
@@ -34,7 +35,6 @@ export function formBuilderClient(
 
   initializeComponentList();
 
-  client.componentUtils = componentUtils;
   const dropzone = contentContainer.querySelector(".dropzone");
   const propsModal = contentContainer.querySelector(".propsmodal");
 
@@ -78,7 +78,7 @@ export function formBuilderClient(
     event.preventDefault();
     dropzone.classList.remove("drag-over");
     const componentType = event.dataTransfer.getData("text");
-    const componentJson = componentUtils.getComponentJson(componentType);
+    const componentJson = getComponentJson(componentType);
     client.addComponent(componentJson);
   });
 
@@ -97,7 +97,7 @@ export function formBuilderClient(
 
     removeButton.addEventListener("click" , ()=> {
       propsModal.classList.remove("open");
-      client.componentUtils.closePropsContainer(canvasContainer);
+      closePropsContainer(canvasContainer);
 
     })
      
@@ -196,9 +196,9 @@ export function formBuilderClient(
           : Name;
 
       const listItem = document.createElement("li");
-      const component = client.componentUtils.createComponent(componentJson);
+      const component = createComponent(componentJson);
       if (componentJson.Name !== "submit") {
-        client.componentUtils.registerEvents(
+        registerEvents(
           component,
           propsModal,
           client,

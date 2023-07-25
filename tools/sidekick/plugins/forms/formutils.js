@@ -1,3 +1,5 @@
+import { createFormPreview } from "./formpreview.js";
+
 export function registerContentContainerEvents(
   contentContainer,
   canvasContainer,
@@ -5,53 +7,40 @@ export function registerContentContainerEvents(
   formpreviewContainer,
   formExcelContainer,
   excelUtils,
-  previewclient,
   formClient
 ) {
-  const builderView = contentContainer.querySelector(
-    'sp-action-button[value="builder"]'
-  );
-  builderView?.addEventListener("click", () => {
-    formbuilderContainer.style.display = "block";
-    formpreviewContainer.style.display = "none";
-    formExcelContainer.style.display = "none";
+
+  function showContainer(container) {
+    formbuilderContainer.style.display = container === "builder" ? "block" : "none";
+    formpreviewContainer.style.display = container === "preview" ? "block" : "none";
+    formExcelContainer.style.display = container === "exceltable" ? "block" : "none";
+  }
+
+  contentContainer.addEventListener("click", (event) => {
+    const targetValue = event.target.getAttribute("value");
+    if (targetValue === "builder" || targetValue === "preview" || targetValue === "exceltable") {
+      showContainer(targetValue);
+
+      if (targetValue === "preview") {
+        const data = formClient.componentListJson;
+        formpreviewContainer.innerHTML = "";
+        createFormPreview(data, formClient.sitepageurl).then((res) => {
+          formpreviewContainer.appendChild(res);
+        });
+      } else if (targetValue === "exceltable") {
+        const table = excelUtils.createExcelTable();
+        const excelViewContainer = formExcelContainer.querySelector(".excelview-container");
+        excelViewContainer.innerHTML = "";
+        excelViewContainer.appendChild(table);
+      }
+    }
   });
 
-  // preview button
-  const previewView = contentContainer.querySelector(
-    'sp-action-button[value="preview"]'
-  );
-  previewView?.addEventListener("click", () => {
-    formbuilderContainer.style.display = "none";
-    formpreviewContainer.style.display = "block";
-    formExcelContainer.style.display = "none";
-    const data = formClient.componentListJson;
-    
-    formpreviewContainer.innerHTML = "";
-    previewclient.createForm(data , formClient.sitepageurl).then((res) => {
-      formpreviewContainer.appendChild(res);
-    });
-  });
-
-  // excel button
-  const excelView = contentContainer.querySelector(
-    'sp-action-button[value="exceltable"]'
-  );
-  excelView?.addEventListener("click", () => {
-    const table = excelUtils.createExcelTable();
-    formbuilderContainer.style.display = "none";
-    formpreviewContainer.style.display = "none";
-    formExcelContainer.style.display = "block";
-
-    const excelViewContainer = formExcelContainer.querySelector(
-      ".excelview-container"
-    );
-    excelViewContainer.innerHTML = "";
-    excelViewContainer.appendChild(table);
-
-    const copyButton = canvasContainer.querySelector(".action-container sp-button");
-    copyButton.addEventListener("click", () => {
+  const copyButton = canvasContainer.querySelector(".action-container sp-button");
+  copyButton.addEventListener("click", () => {
+    const table = formExcelContainer.querySelector("table");
+    if (table) {
       excelUtils.copyToClipBoard(table);
-    });
+    }
   });
 }
